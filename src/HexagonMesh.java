@@ -12,7 +12,7 @@ import com.jme3.util.BufferUtils;
 
 /**
  *
- * @author mihaita
+ * @author Mihaita
  */
 public class HexagonMesh extends Mesh {
     
