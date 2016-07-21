@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HexBoard {
     
-    protected ConcurrentHashMap<HexCoordinate, Hexagon> board;
+    protected static ConcurrentHashMap<HexCoordinate, Hexagon> board;
     private final int diameter;
     
     public HexBoard(int diameter)
@@ -21,6 +21,7 @@ public class HexBoard {
         this.diameter = diameter;
         
         generateField();
+        populateNeigbors();
     }
     
     /**
@@ -44,8 +45,6 @@ public class HexBoard {
                     int z = -1*x -y;
 
                     HexCoordinate coord = new HexCoordinate(x, y, z);
-
-                    System.out.println("Coord:" + coord.toString());
                     
                     //Place it
                     Hexagon h = new Hexagon(coord);
@@ -59,4 +58,43 @@ public class HexBoard {
         }
         
     }
+    
+    
+    
+    /*
+    * Fill the list of neighbors of each hexagon in the grid.
+    */
+    private void populateNeigbors()
+    {
+         board.forEachValue(board.size(),HexBoard::setHexNeighbors);
+    }
+    
+    public static void setHexNeighbors(Hexagon h) {
+        
+        /*
+        var directions = [
+            Cube(+1, -1,  0), Cube(+1,  0, -1), Cube( 0, +1, -1),
+            Cube(-1, +1,  0), Cube(-1,  0, +1), Cube( 0, -1, +1)
+            ]
+        */
+        
+        HexCoordinate[] neighs = { 
+            new HexCoordinate(+1, -1,  0), 
+            new HexCoordinate(+1,  0, -1), 
+            new HexCoordinate( 0, +1, -1),
+            new HexCoordinate(-1, +1,  0), 
+            new HexCoordinate(-1,  0, +1), 
+            new HexCoordinate( 0, -1, +1) 
+        };        
+                
+        HexCoordinate c = h.getCoordinate();
+        
+        for (int i = 0; i < neighs.length; i++)
+        {
+            h.setNeighbor(i, board.get(c.add(neighs[i])) );
+        }
+
+    }
+    
+    
 }
