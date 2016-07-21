@@ -4,6 +4,7 @@
  */
 package nl.ibe.hex;
 
+import nl.ibe.hexgame.HexCoordinate;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -15,14 +16,14 @@ import mygame.Main;
  * 
  * @author mihaita
  */
-public class Hexagon {
+public class HexagonContainer {
     
     private Geometry hexGeom;
     private HexCoordinate coord;
     
     private HashMap<String, Object> attributes;
     
-    public Hexagon(HexCoordinate hc, Node node) {
+    public HexagonContainer(HexCoordinate hc, Node node) {
         this.coord = hc;
         
         //Initialize the geometry

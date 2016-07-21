@@ -4,6 +4,7 @@
  */
 package nl.ibe.hex;
 
+import nl.ibe.hexgame.HexCoordinate;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.HashMap;
@@ -20,22 +21,22 @@ public class HexGrid {
     //For spatials
     protected Node node;
     
-    protected HashMap<HexCoordinate, Hexagon> grid;
+    protected HashMap<HexCoordinate, HexagonContainer> grid;
     
     public HexGrid(int size, Node rootNode) {
         this.size = size;
         
-        this.grid = new HashMap<HexCoordinate, Hexagon>();
+        this.grid = new HashMap<HexCoordinate, HexagonContainer>();
         this.node = new Node("hexgrid node");
         rootNode.attachChild(node);
         
         generateField();
         
         //Put everything on a location
-        for (Map.Entry<HexCoordinate, Hexagon> entry : grid.entrySet()) {
+        for (Map.Entry<HexCoordinate, HexagonContainer> entry : grid.entrySet()) {
             
             HexCoordinate hexCoordinate = entry.getKey();
-            Hexagon hexagon = entry.getValue();
+            HexagonContainer hexagon = entry.getValue();
             
             
         }
@@ -84,7 +85,7 @@ public class HexGrid {
                     System.out.println("Coord:" + coord.toString());
                     
                     //Place it
-                    Hexagon h = new Hexagon(coord, node);
+                    HexagonContainer h = new HexagonContainer(coord, node);
                     h.place(getHexPosition(coord));
                     
                     grid.put(coord, h);
