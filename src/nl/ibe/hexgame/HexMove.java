@@ -5,18 +5,15 @@
  */
 package nl.ibe.hexgame;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author mihaita
  */
-public class HexGame {
+public class HexMove {
     
-    private HexBoard board;
-    private ArrayList<HexPlayer> players = new ArrayList<>();
-    private ArrayList<HexMove> gameHist = new ArrayList<>();
-    
+    private HexPlayer player;
+    private Hexagon from;
+    private Hexagon to;
     
     
     
