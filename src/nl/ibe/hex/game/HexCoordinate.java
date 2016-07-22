@@ -4,6 +4,8 @@
  */
 package nl.ibe.hex.game;
 
+import java.util.ArrayList;
+
 /**
  * A coordinate with 3 values.
  * 
@@ -26,10 +28,66 @@ public class HexCoordinate {
         return new HexCoordinate(this.x + other.x, this.y + other.y, this.z + other.z);
     }
     
+    
+    public HexCoordinate scale(float val)
+    {
+        return new HexCoordinate((int)(this.x * val), (int)(this.y * val), (int)(this.z * val));
+    }
+    
     public int distance(HexCoordinate other)
     {
         return (Math.abs(this.x - other.x) + Math.abs(this.y - other.y) + Math.abs(this.z - other.z)) / 2;
     }
+    
+    public HexCoordinate getNeighbor(int i)
+    {
+        switch(i) {
+            
+            case 0:
+                return this.add(new HexCoordinate(+1, -1,  0));
+            case 1:
+                return this.add(new HexCoordinate(+1,  0, -1));                
+            case 2:
+                return this.add(new HexCoordinate( 0, +1, -1));
+            case 3:
+                return this.add(new HexCoordinate(-1, +1,  0));
+            case 4:
+                return this.add(new HexCoordinate(-1,  0, +1)); 
+            case 5:
+                return this.add(new HexCoordinate( 0, -1, +1));
+            default:
+                return null;
+        }
+      
+    }
+    
+    public ArrayList<HexCoordinate> ring(int radius)
+    {
+        /*
+         var cube = cube_add(center, 
+                        cube_scale(cube_direction(4), radius))
+    for each 0 ≤ i < 6:
+        for each 0 ≤ j < radius:
+            results.append(cube)
+            cube = cube_neighbor(cube, i)
+    return results
+*/
+        
+        ArrayList<HexCoordinate> result = new ArrayList();
+        HexCoordinate neigh4 = this.getNeighbor(4);
+        HexCoordinate cube = this.add(neigh4.scale(radius));
+        
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j =0; j < radius; radius++)
+            {
+                result.add(cube);
+                cube = cube.getNeighbor(i);
+            }
+        }
+        return result;
+    }
+    
     
     @Override
     public String toString()

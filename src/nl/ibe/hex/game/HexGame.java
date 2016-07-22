@@ -52,6 +52,41 @@ public class HexGame implements IHexGame {
         }           
     }
 
+    private void nextPlayer()
+    {
+        if (currPlayer == players[0])
+        {
+            currPlayer = players[1];
+        }
+        else
+        {
+            currPlayer = players[0];
+        }
+        notifyListenersPlayerChanged(currPlayer);
+    }
+    
+    private ArrayList<HexCoordinate> pruneImpossibleLocations(ArrayList<HexCoordinate> input)
+    {
+        ArrayList<HexCoordinate> result = new ArrayList<>();
+        Iterator<HexCoordinate> it = input.iterator();
+        HexCoordinate curr = null;
+        while (it.hasNext())
+        {
+            curr = it.next();
+            HexTile tile = HexBoard.board.get(curr);
+            
+            if (  tile != null)
+            {
+                if (tile.getOwner() == null)
+                {
+                    result.add(curr);
+                }
+            }
+        }
+        return result;
+        
+    }
+    
     @Override
     public HexPlayer getCurrentPlayer() {
         return currPlayer;
@@ -59,17 +94,18 @@ public class HexGame implements IHexGame {
 
     @Override
     public boolean move(HexMove move) {
+        nextPlayer();
         return true;
     }
 
     @Override
     public ArrayList<HexCoordinate> getCloneTiles(HexCoordinate c) {
-        return null;
+        return pruneImpossibleLocations(c.ring(1));
     }
 
     @Override
     public ArrayList<HexCoordinate> getMoveTiles(HexCoordinate c) {
-        return null;
+        return pruneImpossibleLocations(c.ring(2));
     }
 
     @Override
