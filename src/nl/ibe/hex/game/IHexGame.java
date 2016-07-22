@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mihaita
+ * @author b0rg3rt, MisterCavespider
  */
 public interface IHexGame {
     

@@ -12,7 +12,10 @@ import java.util.HashMap;
 /**
  * This is a tile.
  * 
- * @author mihaita
+ * It has a stored coordinate, thus inverted
+ * convertion is not needed.
+ * 
+ * @author MisterCavespider
  */
 public class HexSpatial extends Geometry {
     

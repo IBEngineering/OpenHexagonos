@@ -20,7 +20,7 @@ import nl.ibe.hex.view.View;
 
 /**
  *
- * @author mihaita
+ * @author MisterCavespider
  */
 public class Clicker implements ActionListener {
     
@@ -28,7 +28,7 @@ public class Clicker implements ActionListener {
     
     private final SimpleApplication app;
     private final Node node;
-    private View view;
+    private final View view;
 
     public Clicker(SimpleApplication app, Node node, View view) {
         this.app = app;

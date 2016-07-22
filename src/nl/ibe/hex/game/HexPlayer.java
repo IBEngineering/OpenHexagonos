@@ -7,7 +7,7 @@ package nl.ibe.hex.game;
 
 /**
  *
- * @author mihaita
+ * @author b0rg3rt
  */
 public class HexPlayer {
     

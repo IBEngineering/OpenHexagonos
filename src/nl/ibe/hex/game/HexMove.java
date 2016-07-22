@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author mihaita
+ * @author b0rg3rt
  */
 public class HexMove {
     

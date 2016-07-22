@@ -11,8 +11,11 @@ import com.jme3.scene.VertexBuffer;
 import com.jme3.util.BufferUtils;
 
 /**
- *
- * @author mihaita
+ * A mesh for hexagons.
+ * 
+ * WARNING: ThERE IS NO TEXTURE SUPPORT YET.
+ * 
+ * @author MisterCavespider
  */
 public class HexagonMesh extends Mesh {
     
@@ -36,6 +39,13 @@ public class HexagonMesh extends Mesh {
         setBuffer(VertexBuffer.Type.Index, 3, BufferUtils.createIntBuffer(indeces));
     }
     
+    /**
+     * Simply loops the loopHexagonVectors().
+     * 
+     * top-pointing.
+     * 
+     * @return  An array with Vector3f.
+     */
     protected Vector3f[] generateCorners() {
         Vector3f[] corners = new Vector3f[7];
         
@@ -51,6 +61,13 @@ public class HexagonMesh extends Mesh {
         return corners;
     }
     
+    /**
+     * Gets the corners of a hexagon from a square.
+     * 
+     * Not even begun.
+     * 
+     * @return  An array with Vector2f.
+     */
     protected Vector2f[] generateTexCoords() {
         Vector2f[] texCoords = new Vector2f[7];
         
@@ -63,6 +80,14 @@ public class HexagonMesh extends Mesh {
         return texCoords;
     }
     
+    /**
+     * Makes the indeces (triangles).
+     * 
+     * The corners are made 0-5, a-f. The center is 6.
+     * It makes it a triangle fan.
+     * 
+     * @return
+     */
     protected int[] generateIndeces() {
         //Set the indeces, without loop
         int a = 0;
@@ -84,6 +109,21 @@ public class HexagonMesh extends Mesh {
         return indeces;
     }
     
+    /**
+     * Gets one of the vectors.
+     * 
+     * top-pointing.
+     * 
+     * First, it calculates the angle in degrees.
+     * Then, it converts to radians. It uses the radians
+     * in the formulas.
+     * 
+     * x = size * cos(angle).
+     * y - size * sin(angle).
+     * 
+     * @param i How far in the loop are we?
+     * @return  One vector for in the corners.
+     */
     protected Vector3f loopHexagonVectors(int i) {
         float angle_deg = 60 * i + 30;      //For top-pointing
         float angle_rad = (float) (Math.PI / 180 * angle_deg);

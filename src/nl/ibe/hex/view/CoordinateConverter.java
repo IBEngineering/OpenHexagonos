@@ -9,11 +9,18 @@ import com.jme3.math.Vector3f;
 import nl.ibe.hex.game.HexCoordinate;
 
 /**
- *
- * @author mihaita
+ * A converter for hexagonal coordinates.
+ * 
+ * @author MisterCavespider
  */
 public class CoordinateConverter {
     
+    /**
+     * Converts a HexCoordinate to a Vector3f.
+     * 
+     * @param c The hexagonal coordinate
+     * @return  The vector of the coordinate
+     */
     public static Vector3f toVector(HexCoordinate c) {
         
         int size = 2;

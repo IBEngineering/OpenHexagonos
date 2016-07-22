@@ -9,8 +9,6 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.ColorRGBA;
-import com.jme3.scene.Geometry;
-import de.jarnbjo.oggtools.Player;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -26,7 +24,8 @@ import nl.ibe.hex.game.IHexGame;
 import nl.ibe.hex.game.IHexGameListener;
 
 /**
- *
+ * This contains everything for the view.
+ * 
  * @author MisterCavespider
  */
 public class View implements IHexGameListener{
@@ -49,6 +48,9 @@ public class View implements IHexGameListener{
     private boolean selected;
     private HexSpatial goal;
     
+    //A logger!
+    Logger LOG = Logger.getLogger("View");
+    
     public View(SimpleApplication app) {
         
         this.app = app;
@@ -58,7 +60,7 @@ public class View implements IHexGameListener{
         //Is there a game?
         if(game == null) {
             //No
-            Logger.getLogger("View").log(Level.SEVERE, "There is no game in the view!");
+            LOG.log(Level.SEVERE, "There is no game in the view!");
         } else {
             //Yes
             ConcurrentHashMap<HexCoordinate, HexTile> board = HexBoard.getBoard();
@@ -93,7 +95,7 @@ public class View implements IHexGameListener{
         
         //Was something seleccted?
         if(selected) {
-            System.out.println(hex.getCoord() + " - selected");
+            LOG.log(Level.FINE, "HexCoord(selected): {0}", hex.getCoord());
             //Clicked on the same thing?
             if(hex.getCoord() == selection.getCoord()) {
                 return;
@@ -111,7 +113,7 @@ public class View implements IHexGameListener{
             
             boolean canItMove = game.move(move);
             
-            Logger.getLogger("View").log(Level.INFO, "Can it move? {0}", canItMove);
+            LOG.log(Level.INFO, "Can it move? {0}", canItMove);
             
         } else {
             //Select what we have here
@@ -119,7 +121,7 @@ public class View implements IHexGameListener{
             hex.setMaterial(Main.getColoredMaterial(ColorRGBA.Green));
             selected = true;
             
-            System.out.println(hex.getCoord() + " - !selected");
+            LOG.log(Level.FINE, "HexCoord(!selected): {0}", hex.getCoord());
         }
     }
 

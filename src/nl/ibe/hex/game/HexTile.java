@@ -7,10 +7,14 @@ package nl.ibe.hex.game;
 
 /**
  *
- * @author mihaita
+ * @author b0rg3rt
  */
 public class HexTile {
     
+    /**
+     *
+     * @author MisterCavespider
+     */
     public static class Direction {
         
         public static final int RIGHT = 0;

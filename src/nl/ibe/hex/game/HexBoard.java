@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
- * @author mihaita
+ * @author b0rg3rt
  */
 public class HexBoard {
     

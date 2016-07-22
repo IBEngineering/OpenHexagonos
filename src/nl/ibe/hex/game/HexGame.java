@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author mihaita
+ * @author b0rg3rt
  */
 public class HexGame implements IHexGame {
     

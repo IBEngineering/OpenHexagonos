@@ -7,18 +7,14 @@ import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Torus;
 import com.jme3.system.AppSettings;
 import nl.ibe.hex.game.HexGame;
 import nl.ibe.hex.game.HexPlayer;
-import nl.ibe.hex.view.ViewGrid;
-import nl.ibe.hex.view.HexagonMesh;
 import nl.ibe.hex.view.View;
 
 /**
  * test
- * @author normenhansen
+ * @author MisterCavespider
  */
 public class Main extends SimpleApplication {
     
@@ -58,16 +54,6 @@ public class Main extends SimpleApplication {
     public void initMappings() {
         inputManager.addMapping("Pick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addListener(click, "Pick");
-    }
-
-    @Override
-    public void simpleUpdate(float tpf) {
-        //TODO: add update code
-    }
-
-    @Override
-    public void simpleRender(RenderManager rm) {
-        //TODO: add render code
     }
     
     public static Material getRandomMat() {

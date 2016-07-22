@@ -7,7 +7,7 @@ package nl.ibe.hex.game;
 /**
  * A coordinate with 3 values.
  * 
- * @author mihaita
+ * @author MisterCavespider, b0rg3rt
  */
 public class HexCoordinate {
     
