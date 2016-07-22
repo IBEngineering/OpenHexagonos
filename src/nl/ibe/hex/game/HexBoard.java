@@ -71,7 +71,7 @@ public class HexBoard {
          board.forEachValue(board.size(),HexBoard::setHexNeighbors);
     }
     
-    public static void setHexNeighbors(HexTile h) {
+    private static void setHexNeighbors(HexTile h) {
         
         /*
         var directions = [
