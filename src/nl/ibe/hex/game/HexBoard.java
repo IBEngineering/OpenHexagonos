@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hexgame;
+package nl.ibe.hex.game;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,12 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HexBoard {
     
-    protected static ConcurrentHashMap<HexCoordinate, Hexagon> board;
-    private final int diameter;
+    protected static ConcurrentHashMap<HexCoordinate, HexTile> board;
+    private final int radius;
     
-    public HexBoard(int diameter)
+    public HexBoard(int radius)
     {
-        this.diameter = diameter;
+        this.radius = radius;
         
         generateField();
         populateNeigbors();
@@ -31,15 +31,15 @@ public class HexBoard {
         
         //Loop the x (i) from -size to size
         
-        int x = -1*diameter;
-        while(x<diameter+1) {
+        int x = -1*radius;
+        while(x<radius+1) {
             
-            int y = -1*diameter;
+            int y = -1*radius;
             //Loop the y
-            while(y<diameter+1) {
+            while(y<radius+1) {
                 
                 
-                if (x+y <= diameter && x+y >= -1*diameter) {
+                if (x+y <= radius && x+y >= -1*radius) {
 
                     //Loop the z
                     int z = -1*x -y;
@@ -47,7 +47,7 @@ public class HexBoard {
                     HexCoordinate coord = new HexCoordinate(x, y, z);
                     
                     //Place it
-                    Hexagon h = new Hexagon(coord);
+                    HexTile h = new HexTile(coord);
                     board.put(coord, h);
                 }
                 y++;
@@ -58,8 +58,10 @@ public class HexBoard {
         }
         
     }
-    
-    
+
+    public static ConcurrentHashMap<HexCoordinate, HexTile> getBoard() {
+        return board;
+    }
     
     /*
     * Fill the list of neighbors of each hexagon in the grid.
@@ -69,7 +71,7 @@ public class HexBoard {
          board.forEachValue(board.size(),HexBoard::setHexNeighbors);
     }
     
-    public static void setHexNeighbors(Hexagon h) {
+    public static void setHexNeighbors(HexTile h) {
         
         /*
         var directions = [

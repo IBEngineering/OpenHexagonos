@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hexgame;
+package nl.ibe.hex.game;
 
 import java.util.ArrayList;
 
@@ -11,13 +11,9 @@ import java.util.ArrayList;
  *
  * @author mihaita
  */
-public class HexGame {
+public interface IHexGameListener {
     
-    private HexBoard board;
-    private ArrayList<HexPlayer> players = new ArrayList<>();
-    private ArrayList<HexMove> gameHist = new ArrayList<>();
-    
-    
-    
-    
+    public void tilesChanged(ArrayList<HexTile> hexagons);
+    public void playerChanged(HexPlayer player);
+       
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hexgame;
+package nl.ibe.hex.view;
 
 /**
  *
- * @author mihaita
+ * @author Mister
  */
-class HexPlayer {
+public class ViewEventShooter {
     
 }

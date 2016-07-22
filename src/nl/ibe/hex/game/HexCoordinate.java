@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hexgame;
+package nl.ibe.hex.game;
 
 /**
  * A coordinate with 3 values.

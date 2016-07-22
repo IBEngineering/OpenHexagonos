@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hexgame;
+package nl.ibe.hex.game;
 
 /**
  *
@@ -19,13 +19,13 @@ public class HexMoveValidator {
     }
     
     
-    public Hexagon[] getValidClones(HexCoordinate c)
+    public HexTile[] getValidClones(HexCoordinate c)
     {
         //TODO implement
         return null;
     }
     
-    public Hexagon[] getValidMoves(HexCoordinate c)
+    public HexTile[] getValidMoves(HexCoordinate c)
     {
         //TODO implement
         return null;

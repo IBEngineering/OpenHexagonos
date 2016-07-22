@@ -10,8 +10,8 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Torus;
 import com.jme3.system.AppSettings;
-import nl.ibe.hex.HexGrid;
-import nl.ibe.hex.HexagonMesh;
+import nl.ibe.hex.view.HexGrid;
+import nl.ibe.hex.view.HexagonMesh;
 
 /**
  * test

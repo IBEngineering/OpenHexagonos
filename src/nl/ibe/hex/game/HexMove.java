@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hexgame;
+package nl.ibe.hex.game;
 
 /**
  *
@@ -12,8 +12,8 @@ package nl.ibe.hexgame;
 public class HexMove {
     
     private HexPlayer player;
-    private Hexagon from;
-    private Hexagon to;
+    private HexTile from;
+    private HexTile to;
     
     
     

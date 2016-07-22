@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.ibe.hex;
+package nl.ibe.hex.view;
 
-import nl.ibe.hexgame.HexCoordinate;
+import nl.ibe.hex.game.HexCoordinate;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.HashMap;
