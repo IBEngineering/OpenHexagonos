@@ -5,6 +5,8 @@
  */
 package nl.ibe.hex.game;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mihaita
@@ -19,13 +21,13 @@ public class HexMoveValidator {
     }
     
     
-    public HexTile[] getValidClones(HexCoordinate c)
+    public ArrayList<HexTile> getValidClones(HexCoordinate c)
     {
         //TODO implement
         return null;
     }
     
-    public HexTile[] getValidMoves(HexCoordinate c)
+    public ArrayList<HexTile> getValidMoves(HexCoordinate c)
     {
         //TODO implement
         return null;

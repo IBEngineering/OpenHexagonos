@@ -25,6 +25,7 @@ public class HexGame implements IHexGame {
         players[0] = p1;
         players[1] = p2;
         currPlayer = p1;
+        this.board = new HexBoard(4);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class HexGame implements IHexGame {
 
     @Override
     public boolean move(HexMove move) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override

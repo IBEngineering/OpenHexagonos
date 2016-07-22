@@ -18,6 +18,7 @@ public class HexBoard {
     
     public HexBoard(int radius)
     {
+        board = new ConcurrentHashMap<>();
         this.radius = radius;
         
         generateField();

@@ -25,7 +25,12 @@ public class HexCoordinate {
     {
         return new HexCoordinate(this.x + other.x, this.y + other.y, this.z + other.z);
     }
-
+    
+    public int distance(HexCoordinate other)
+    {
+        return (Math.abs(this.x - other.x) + Math.abs(this.y - other.y) + Math.abs(this.z - other.z)) / 2;
+    }
+    
     @Override
     public String toString()
     {

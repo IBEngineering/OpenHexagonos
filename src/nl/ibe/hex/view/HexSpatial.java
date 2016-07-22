@@ -31,4 +31,8 @@ public class HexSpatial extends Geometry {
         Vector3f vec = CoordinateConverter.toVector(coord);
         setLocalTranslation(vec);
     }
+
+    public HexCoordinate getCoord() {
+        return coord;
+    }
 }
