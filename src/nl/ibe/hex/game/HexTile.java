@@ -28,7 +28,7 @@ public class HexTile {
     
     private HexCoordinate coordinate; 
     private HexTile[] neighbors = new HexTile[6];
-    private HexPlayer owner;
+    private HexPlayer owner = null;
     
     public HexTile(HexCoordinate c)
     {

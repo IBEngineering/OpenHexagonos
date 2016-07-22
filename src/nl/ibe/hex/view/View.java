@@ -10,6 +10,7 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.ColorRGBA;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,7 +121,21 @@ public class View implements IHexGameListener{
             //Select what we have here
             selection = hex;
             hex.setMaterial(Main.getColoredMaterial(ColorRGBA.Green));
+            
             selected = true;
+            
+            ArrayList<HexCoordinate> list = game.getCloneTiles(hex.getCoord());
+            Iterator<HexCoordinate> it = list.iterator();
+            while (it.hasNext())
+            {
+                HexCoordinate c = it.next();
+                LOG.log(Level.INFO,c.toString());
+                HexSpatial spatial = grid.grid.get(c);
+                if (spatial != null)
+                {
+                    spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.White));
+                }
+            }
             
             LOG.log(Level.FINE, "HexCoord(!selected): {0}", hex.getCoord());
         }

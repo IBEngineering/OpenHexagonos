@@ -28,7 +28,6 @@ public class HexCoordinate {
         return new HexCoordinate(this.x + other.x, this.y + other.y, this.z + other.z);
     }
     
-    
     public HexCoordinate scale(float val)
     {
         return new HexCoordinate((int)(this.x * val), (int)(this.y * val), (int)(this.z * val));
@@ -42,19 +41,19 @@ public class HexCoordinate {
     public HexCoordinate getNeighbor(int i)
     {
         switch(i) {
-            
-            case 0:
-                return this.add(new HexCoordinate(+1, -1,  0));
+            // Order seems wrong
+            case 0:                                 //y //x //z   xyz
+                return this.add(new HexCoordinate( -1, +1, 0));
             case 1:
-                return this.add(new HexCoordinate(+1,  0, -1));                
+                return this.add(new HexCoordinate( 0, +1, -1));                
             case 2:
-                return this.add(new HexCoordinate( 0, +1, -1));
+                return this.add(new HexCoordinate( +1, 0, -1));
             case 3:
-                return this.add(new HexCoordinate(-1, +1,  0));
+                return this.add(new HexCoordinate( +1, -1, 0));
             case 4:
-                return this.add(new HexCoordinate(-1,  0, +1)); 
+                return this.add(new HexCoordinate( 0,  -1, +1)); 
             case 5:
-                return this.add(new HexCoordinate( 0, -1, +1));
+                return this.add(new HexCoordinate( -1,  0, +1));
             default:
                 return null;
         }
@@ -72,15 +71,16 @@ public class HexCoordinate {
             cube = cube_neighbor(cube, i)
     return results
 */
-        
+        System.out.println("this: " + this.toString());
         ArrayList<HexCoordinate> result = new ArrayList();
         HexCoordinate neigh4 = this.getNeighbor(4);
         HexCoordinate cube = this.add(neigh4.scale(radius));
         
         for (int i = 0; i < 6; i++)
         {
-            for (int j =0; j < radius; radius++)
+            for (int j =0; j < radius; j++)
             {
+                System.out.println("cube: " + cube.toString());
                 result.add(cube);
                 cube = cube.getNeighbor(i);
             }

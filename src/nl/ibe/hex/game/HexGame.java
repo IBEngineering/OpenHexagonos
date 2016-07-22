@@ -102,7 +102,7 @@ public class HexGame implements IHexGame {
 
     @Override
     public ArrayList<HexCoordinate> getCloneTiles(HexCoordinate c) {
-        return pruneImpossibleLocations(c.ring(1));
+        return c.ring(1);
     }
 
     @Override
