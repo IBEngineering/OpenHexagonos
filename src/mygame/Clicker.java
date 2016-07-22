@@ -18,6 +18,8 @@ import com.jme3.math.Vector3f;
  */
 public class Clicker implements ActionListener {
     
+    public static String mapping = "Pick for the Clicker";
+    
     private final SimpleApplication app;
 
     public Clicker(SimpleApplication app) {
@@ -28,7 +30,7 @@ public class Clicker implements ActionListener {
         
         System.out.println("Click!");
         
-        if(name.equals("Pick") && !isPressed) {
+        if(name.equals(mapping) && !isPressed) {
             //Shoot the ray!
             
             // Reset results list.

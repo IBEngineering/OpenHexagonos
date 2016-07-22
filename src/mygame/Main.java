@@ -10,7 +10,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Torus;
 import com.jme3.system.AppSettings;
-import nl.ibe.hex.view.HexGrid;
+import nl.ibe.hex.view.ViewGrid;
 import nl.ibe.hex.view.HexagonMesh;
 
 /**
@@ -74,11 +74,7 @@ public class Main extends SimpleApplication {
         cyl.move(-(width/2), 0, height * 0.75f);
         
         //Create the grid
-        HexGrid grid = new HexGrid(4, rootNode);
-        
-        //Create a clicker
-        click = new Clicker(this);
-        initMappings();
+        ViewGrid grid = new ViewGrid(4, rootNode);
     }
     
     public void initMappings() {
