@@ -63,7 +63,7 @@ public class View implements IHexGameListener{
             LOG.log(Level.SEVERE, "There is no game in the view!");
         } else {
             //Yes
-            ConcurrentHashMap<HexCoordinate, HexTile> board = HexBoard.getBoard();
+            ConcurrentHashMap<HexCoordinate, HexTile> board = game.getBoard().getBoard();
             grid = new ViewGrid(board, app.getRootNode());
             
             click = new Clicker(app, grid.node, this);
@@ -114,6 +114,7 @@ public class View implements IHexGameListener{
             boolean canItMove = game.move(move);
             
             LOG.log(Level.INFO, "Can it move? {0}", canItMove);
+            selected = false;
             
         } else {
             //Select what we have here

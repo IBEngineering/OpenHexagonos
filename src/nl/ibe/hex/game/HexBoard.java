@@ -5,6 +5,8 @@
  */
 package nl.ibe.hex.game;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -60,7 +62,7 @@ public class HexBoard {
         
     }
 
-    public static ConcurrentHashMap<HexCoordinate, HexTile> getBoard() {
+    public ConcurrentHashMap<HexCoordinate, HexTile> getBoard() {
         return board;
     }
     
@@ -69,10 +71,16 @@ public class HexBoard {
     */
     private void populateNeigbors()
     {
-         board.forEachValue(board.size(),HexBoard::setHexNeighbors);
+         Collection<HexTile> allTiles = board.values();
+         Iterator<HexTile> it = allTiles.iterator();
+         while (it.hasNext())
+         {
+             setHexNeighbors(it.next());
+         }
+         
     }
     
-    private static void setHexNeighbors(HexTile h) {
+    private void setHexNeighbors(HexTile h) {
         
         /*
         var directions = [

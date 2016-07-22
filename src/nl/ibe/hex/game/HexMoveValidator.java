@@ -20,17 +20,14 @@ public class HexMoveValidator {
         this.board = board;
     }
     
-    
-    public ArrayList<HexTile> getValidClones(HexCoordinate c)
+    public boolean isValidMove(HexMove move)
     {
-        //TODO implement
-        return null;
-    }
-    
-    public ArrayList<HexTile> getValidMoves(HexCoordinate c)
-    {
-        //TODO implement
-        return null;
+        
+        
+        
+        
+        
+        return false;
     }
     
     

@@ -19,6 +19,7 @@ public class HexGame implements IHexGame {
     private HexPlayer currPlayer; 
     private ArrayList<HexMove> gameHist = new ArrayList<>();
     private ArrayList<IHexGameListener> listeners = new ArrayList<>();
+    private HexMoveValidator validator;
     
     public HexGame (HexPlayer p1, HexPlayer p2)
     {
@@ -26,6 +27,7 @@ public class HexGame implements IHexGame {
         players[1] = p2;
         currPlayer = p1;
         this.board = new HexBoard(4);
+        this.validator = new HexMoveValidator(this.board);
     }
 
     @Override
