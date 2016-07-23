@@ -74,8 +74,14 @@ public class HexCoordinate {
         System.out.println("this: " + this.toString());
         ArrayList<HexCoordinate> result = new ArrayList();
         HexCoordinate neigh4 = this.getNeighbor(4);
-        HexCoordinate cube = this.add(neigh4.scale(radius));
+        //HexCoordinate cube = this.add(neigh4.scale(radius));
         
+        HexCoordinate cube = neigh4;
+        for (int i =1; i < radius; i++)
+        {
+            cube = cube.getNeighbor(4);
+        }
+                
         for (int i = 0; i < 6; i++)
         {
             for (int j =0; j < radius; j++)

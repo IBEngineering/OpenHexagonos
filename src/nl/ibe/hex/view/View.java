@@ -124,6 +124,7 @@ public class View implements IHexGameListener{
             
             selected = true;
             
+            
             ArrayList<HexCoordinate> list = game.getCloneTiles(hex.getCoord());
             Iterator<HexCoordinate> it = list.iterator();
             while (it.hasNext())
@@ -137,7 +138,7 @@ public class View implements IHexGameListener{
                 }
             }
             
-            LOG.log(Level.FINE, "HexCoord(!selected): {0}", hex.getCoord());
+            LOG.log(Level.INFO, "HexCoord(!selected): {0}", hex.getCoord());
         }
     }
 
