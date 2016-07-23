@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
- * @author b0rg3rt
+ * @author b0rg3rt, MisterCavespider
  */
 public class HexGame implements IHexGame {
     
@@ -76,7 +76,7 @@ public class HexGame implements IHexGame {
         }        
     }
     
-    private void notifyListenersTilesChanged(ArrayList<HexTile> hexagons)
+    private void notifyListenersTilesChanged(ArrayList<HexChange> hexagons)
     {
         Iterator<IHexGameListener> it = listeners.iterator();
         while(it.hasNext())
@@ -140,38 +140,43 @@ public class HexGame implements IHexGame {
         }
         
         executeMove(move);       
-        nextPlayer();
+        // View now does this
+        //nextPlayer();
         return true;
     }
     
     private void executeMove(HexMove move)
     {
         ConcurrentHashMap<HexCoordinate,HexTile> bord = board.getBoard();
-        ArrayList<HexTile> changedTiles = new ArrayList<>();
+        ArrayList<HexChange> changedTiles = new ArrayList<>();
         
         //Determine if we do a move or clone
         if (move.getFrom().distance(move.getTo()) < 2)
         {
             //Clone
+            HexTile src = bord.get(move.getFrom());
             HexTile dst = bord.get(move.getTo());
             dst.setOwner(move.getPlayer());
-            changedTiles.add(dst);
+            
+            HexChange change = new HexChange(src, dst, HexChange.Type.DUPLICATION);
+            changedTiles.add(change);
             
         }
         else
         {
-            //move
+            //Jump
+            HexTile src = bord.get(move.getFrom());
             HexTile dst = bord.get(move.getTo());
             dst.setOwner(move.getPlayer());
-            changedTiles.add(dst);
             
-            HexTile src = bord.get(move.getFrom());
             src.setOwner(null);
-            changedTiles.add(src);
+            
+            HexChange change = new HexChange(src, dst, HexChange.Type.JUMP);
+            changedTiles.add(change);
 
         }
         
-        //Do Neigbors
+        //Defeat Neigbors
         for (int i = 0; i < 6; i++)
         {
             HexCoordinate neigh = move.getTo().getNeighbor(i);
@@ -187,7 +192,11 @@ public class HexGame implements IHexGame {
                     !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
             {
                 neighTile.setOwner(currPlayer);
-                changedTiles.add(neighTile);
+                
+                HexTile src = bord.get(move.getFrom());
+                HexTile dst = bord.get(move.getTo());
+                HexChange change = new HexChange(src, dst, HexChange.Type.CONQUEST);
+                changedTiles.add(change);
             }
         }
         
@@ -212,6 +221,11 @@ public class HexGame implements IHexGame {
     @Override
     public HexBoard getBoard() {
        return board;
+    }
+
+    @Override
+    public void nextTurn() {
+        nextPlayer();
     }
     
     

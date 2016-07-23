@@ -12,7 +12,6 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +19,14 @@ import nl.ibe.hex.view.HexSpatial;
 import nl.ibe.hex.view.View;
 
 /**
- *
+ * A clicker.
+ * 
+ * This class listens to the inputManager from 
+ * a SimpleApplication.
+ * 
+ * Calls the View when it has found something worthy
+ * to look at.
+ * 
  * @author MisterCavespider
  */
 public class Clicker implements ActionListener {
@@ -31,6 +37,13 @@ public class Clicker implements ActionListener {
     private final Node node;
     private final View view;
 
+    /**
+     * Generic constructor.
+     * 
+     * @param app   A SimpleApplication for managers.
+     * @param node  A node to detect collisions with.
+     * @param view  The view, to talk to.
+     */
     public Clicker(SimpleApplication app, Node node, View view) {
         this.app = app;
         this.node = node;
@@ -72,7 +85,7 @@ public class Clicker implements ActionListener {
                 
                 System.out.println("you clicked on something");
                 
-                HexSpatial hs = null;
+                HexSpatial hs;
                 for (CollisionResult result : results) {
                     
                     //Check if it's a hexSpatial

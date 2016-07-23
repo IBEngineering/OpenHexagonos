@@ -20,5 +20,6 @@ public interface IHexGame {
     public ArrayList<HexCoordinate> getMoveTiles(HexCoordinate c);
     public void undoMove();
     public HexBoard getBoard();
+    public void nextTurn();
 
 }

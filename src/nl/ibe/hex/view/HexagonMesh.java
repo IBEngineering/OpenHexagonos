@@ -13,22 +13,33 @@ import com.jme3.util.BufferUtils;
 /**
  * A mesh for hexagons.
  * 
- * WARNING: ThERE IS NO TEXTURE SUPPORT YET.
+ * WARNING: THERE IS NO TEXTURE SUPPORT YET.
  * 
  * @author MisterCavespider
  */
 public class HexagonMesh extends Mesh {
     
-    protected float size;
+    protected float radius;
     
-    public HexagonMesh(float size) {
-        this.size = size;
+    /**
+     * Standard constructor.
+     * 
+     * The mesh actually creates 7 corners, as the center 
+     * should also be accounted.
+     * 
+     * @param radius    The radius of the hexagon
+     */
+    public HexagonMesh(float radius) {
+        this.radius = radius;
         
         setAllBuffers();
         
         updateBound();
     } 
     
+    /**
+     * Sets the Position, TexCoord and Index buffers.
+     */
     protected final void setAllBuffers() {
         Vector3f[] corners = generateCorners();
         Vector2f[] texCoords = generateTexCoords();
@@ -128,8 +139,8 @@ public class HexagonMesh extends Mesh {
         float angle_deg = 60 * i + 30;      //For top-pointing
         float angle_rad = (float) (Math.PI / 180 * angle_deg);
         
-        float x = (float) (this.size * Math.cos(angle_rad));
-        float z = (float) (this.size * Math.sin(angle_rad));
+        float x = (float) (this.radius * Math.cos(angle_rad));
+        float z = (float) (this.radius * Math.sin(angle_rad));
         Vector3f vec = new Vector3f(x, 0, z);
         
         return vec;

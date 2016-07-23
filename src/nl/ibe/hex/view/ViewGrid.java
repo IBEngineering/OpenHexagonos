@@ -10,22 +10,31 @@ import com.jme3.scene.Node;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import mygame.Main;
 import nl.ibe.hex.game.HexTile;
+import nl.ibe.hex.supply.MaterialSupplier;
 
 /**
- *
+ * A grid for all the HexSpatials.
+ * 
+ * Contains a HashMap and Node.
+ * 
  * @author MisterCavespider
  */
 public class ViewGrid {
-    
-    protected int radius; //In amount of hexagons.
     
     //For spatials
     protected Node gridNode;
     
     protected HashMap<HexCoordinate, HexSpatial> grid;
     
+    /**
+     * Main constructor.
+     * 
+     * It will also attach the nodes, you only have to give it.
+     * 
+     * @param board     The HexBoard, created in the HexGame.
+     * @param superNode Where to attach the node to.
+     */
     public ViewGrid(ConcurrentHashMap<HexCoordinate, HexTile> board, Node superNode) {
         
         this.grid = new HashMap<>();
@@ -39,15 +48,25 @@ public class ViewGrid {
             
             HexSpatial spatial = new HexSpatial(key, gridNode);
             spatial.placeCorrectly();
-            spatial.setMaterial(ModelSupplier.getBoardMaterial());
+            spatial.setMaterial(MaterialSupplier.getBoardMaterial());
             
             if (entry.getValue().getOwner() != null)
             {
-                spatial.setMaterial(ModelSupplier.getColoredMaterial(ColorRGBA.Pink));
+                spatial.setMaterial(MaterialSupplier.getColoredMaterial(ColorRGBA.Pink));
             }
             
             grid.put(key, spatial);
         }
         
     }
+
+    /**
+     * Returns the grid, a HashMap.
+     * @return  The grid.
+     */
+    public HashMap<HexCoordinate, HexSpatial> getGrid() {
+        return grid;
+    }
+    
+    
 }

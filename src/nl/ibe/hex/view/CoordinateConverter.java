@@ -18,6 +18,18 @@ public class CoordinateConverter {
     /**
      * Converts a HexCoordinate to a Vector3f.
      * 
+     * top-pointing.
+     * 
+     * 1 height unit = the diameter.
+     * 1 width unit = sqrt(3)/2 * height.
+     * 
+     * 1 vertical distance = height * 0.75.
+     * 1 horizontal distance = width.attachTo.
+     * 
+     * x = (hex) z * vertical distance.
+     * y = 0.
+     * z = (hex) x * horizontal distance + 0.5 * (hex) z * horizontal distance.
+     * 
      * @param c The hexagonal coordinate
      * @return  The vector of the coordinate
      */

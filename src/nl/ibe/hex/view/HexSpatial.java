@@ -10,7 +10,7 @@ import nl.ibe.hex.game.HexCoordinate;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import nl.ibe.hex.game.HexPlayer;
-import static nl.ibe.hex.game.HexPlayer.Type.*;
+import nl.ibe.hex.supply.*;
 
 /**
  * This is a tile.
@@ -27,18 +27,31 @@ public class HexSpatial extends Geometry {
     
     //Coordinate
     private HexCoordinate coord;
-
+    
+    //Node
     private Node node;
     
     //Owner etc.
     private Node ownerNode;
     private HexPlayer.Type ownerType;
     
-    public HexSpatial(HexCoordinate hc, Node attachTo) {
+    /**
+     * Standard constructor.
+     * 
+     * It manages the nodes and places the mesh
+     * on the correct place.
+     * 
+     * The node is attachd to the superNode.
+     * The has the ownerNode and the hexSpatial.
+     * 
+     * @param hc
+     * @param superNode
+     */
+    public HexSpatial(HexCoordinate hc, Node superNode) {
         super("A hexagonSpatial", new HexagonMesh(1));
         this.coord = hc;
         
-        setLocalTranslation(0, 0, 0);
+        super.setLocalTranslation(0, 0, 0);
         
         node = new Node("An node at: " + hc);
         
@@ -46,15 +59,26 @@ public class HexSpatial extends Geometry {
         ownerNode.setLocalTranslation(0, 0.5f, 0);
         node.attachChild(ownerNode);
         
-        attachTo.attachChild(node);
+        superNode.attachChild(node);
         
         attachMe();
     }
     
+    /**
+     * Only made so NetBeans will shut up.
+     */
     private void attachMe() {
         node.attachChild(this);
     }
     
+    /**
+     * Makes something that hovers above the spatial.
+     * It represents the owner - the player that
+     * has this tile in possesion.
+     * 
+     * @see ModelSupplier
+     * @param type  The (type of) player.
+     */
     public void setOwner(HexPlayer.Type type) {
         //Set all the values
         ownerType = type;
@@ -62,17 +86,19 @@ public class HexSpatial extends Geometry {
         //Empty the node
         ownerNode.detachAllChildren();
         
-        if(type == CELL) {
-            ownerNode.attachChild(ModelSupplier.getCell());
-            ownerNode.attachChild(ModelSupplier.getFire(ModelSupplier.getCellColor(), ColorRGBA.White));
-        } else if(type == BACTERIA) {
-            ownerNode.attachChild(ModelSupplier.getBacterium());
-            ownerNode.attachChild(ModelSupplier.getFire(ModelSupplier.getBacColor(), ColorRGBA.White));
-        } else if(type == null) {
-            //Nothing! It's gone!
+        //Attach the stuff
+        if(type != null) {
+            ownerNode.attachChild(ModelSupplier.getPlayerShape(type));
+            ownerNode.attachChild(ParticleSupplier.getFire(ColorSupplier.getPlayerColor(type), ColorRGBA.White));
         }
     }
     
+    /**
+     * Places the hexagon on the correct place.
+     * This is based on the hexCoordinate.
+     * 
+     * @see CoordinateConverter
+     */
     public void placeCorrectly() {
         Vector3f vec = CoordinateConverter.toVector(coord);
         node.setLocalTranslation(vec);
