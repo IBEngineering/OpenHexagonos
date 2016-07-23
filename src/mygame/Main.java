@@ -7,9 +7,11 @@ import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.RenderManager;
+import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import nl.ibe.hex.game.HexGame;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.view.ModelSupplier;
 import nl.ibe.hex.view.View;
 
 /**
@@ -49,6 +51,8 @@ public class Main extends SimpleApplication {
         View v = new View(this);
         g.register(v);
         v.construct();
+        
+        testingCase();
     }
     
     public void initMappings() {
@@ -66,5 +70,18 @@ public class Main extends SimpleApplication {
         Material mat = new Material(shortcut, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", color);
         return mat;
+    }
+
+    private void testingCase() {
+        for (int i = 0; i < 5; i++) {
+            Spatial s = ModelSupplier.getBacterium();
+            s.setLocalTranslation(0, 2 + i, 0);
+            rootNode.attachChild(s);
+        }
+        for (int i = 0; i < 5; i++) {
+            Spatial s = ModelSupplier.getCell();
+            s.setLocalTranslation(0, 2 + i, 5);
+            rootNode.attachChild(s);
+        }
     }
 }

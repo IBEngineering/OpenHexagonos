@@ -62,15 +62,7 @@ public class HexCoordinate {
     
     public ArrayList<HexCoordinate> ring(int radius)
     {
-        /*
-         var cube = cube_add(center, 
-                        cube_scale(cube_direction(4), radius))
-    for each 0 ≤ i < 6:
-        for each 0 ≤ j < radius:
-            results.append(cube)
-            cube = cube_neighbor(cube, i)
-    return results
-*/
+        
         System.out.println("this: " + this.toString());
         ArrayList<HexCoordinate> result = new ArrayList();
         HexCoordinate neigh4 = this.getNeighbor(4);

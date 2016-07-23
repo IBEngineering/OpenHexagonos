@@ -11,12 +11,11 @@ import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.ColorRGBA;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mygame.Clicker;
-import mygame.Main;
-import nl.ibe.hex.game.HexBoard;
 import nl.ibe.hex.game.HexCoordinate;
 import nl.ibe.hex.game.HexMove;
 import nl.ibe.hex.game.HexPlayer;
@@ -50,11 +49,13 @@ public class View implements IHexGameListener{
     private HexSpatial goal;
     
     //A logger!
-    Logger LOG = Logger.getLogger("View");
+    private static final Logger LOG = Logger.getLogger("View");
     
     public View(SimpleApplication app) {
-        
         this.app = app;
+        
+        //Start off the ModelSupplier by giving it the app
+        ModelSupplier.start(app, new ModelSupplierSettings(true));
     }
     
     public void construct() {
@@ -67,7 +68,7 @@ public class View implements IHexGameListener{
             ConcurrentHashMap<HexCoordinate, HexTile> board = game.getBoard().getBoard();
             grid = new ViewGrid(board, app.getRootNode());
             
-            click = new Clicker(app, grid.node, this);
+            click = new Clicker(app, grid.gridNode, this);
             
             app.getInputManager().addMapping(Clicker.mapping, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
             app.getInputManager().addListener(click, Clicker.mapping);
@@ -79,6 +80,13 @@ public class View implements IHexGameListener{
     public void tilesChanged(ArrayList<HexTile> hexagons) {
         //The tiles have changed owner
         //Loop over them and change the blobs
+        
+        for (HexTile tile : hexagons) {
+            HexPlayer owner = tile.getOwner();
+            
+            System.out.println(owner.getType());
+            grid.grid.get(tile.getCoordinate()).setOwner(owner.getType());
+        }
     }
 
     @Override
@@ -118,10 +126,18 @@ public class View implements IHexGameListener{
             LOG.log(Level.INFO, "Can it move? {0}", canItMove);
             selected = false;
             
-        } else {
+            //Reset the colors
+            for (Map.Entry<HexCoordinate, HexSpatial> en : grid.grid.entrySet()) {
+                HexCoordinate key = en.getKey();
+                HexSpatial value = en.getValue();
+                
+                value.setMaterial(ModelSupplier.getBoardMaterial());
+            }
+            
+        } else {    //!selected
             //Select what we have here
             selection = hex;
-            hex.setMaterial(Main.getColoredMaterial(ColorRGBA.Green));
+            hex.setMaterial(ModelSupplier.getColoredMaterial(ColorRGBA.Green));
             
             selected = true;
             
@@ -135,7 +151,7 @@ public class View implements IHexGameListener{
                 HexSpatial spatial = grid.grid.get(c);
                 if (spatial != null)
                 {
-                    spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.White));
+                    spatial.setMaterial(ModelSupplier.getColoredMaterial(ColorRGBA.White));
                 }
             }
             
@@ -148,7 +164,7 @@ public class View implements IHexGameListener{
                 HexSpatial spatial = grid.grid.get(c);
                 if (spatial != null)
                 {
-                    spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.Gray));
+                    spatial.setMaterial(ModelSupplier.getColoredMaterial(ColorRGBA.Gray));
                 }
             }
             

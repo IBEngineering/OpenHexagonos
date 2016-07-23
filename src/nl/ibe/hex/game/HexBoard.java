@@ -5,6 +5,7 @@
  */
 package nl.ibe.hex.game;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -88,7 +89,7 @@ public class HexBoard {
             Cube(-1, +1,  0), Cube(-1,  0, +1), Cube( 0, -1, +1)
             ]
         */
-        
+        // THIS IS VERY BROKEN LETS JUST REMOVE IT
         HexCoordinate[] neighs = { 
             new HexCoordinate(+1, -1,  0), 
             new HexCoordinate(+1,  0, -1), 
@@ -111,7 +112,22 @@ public class HexBoard {
         return radius;
     }
     
-    
+    public ArrayList<HexCoordinate> getPlayerPositions(HexPlayer p)
+    {
+        ArrayList<HexCoordinate> coords = new ArrayList<>();
+        
+        Collection<HexTile> c = board.values();
+        Iterator<HexTile> it = c.iterator();
+        while (it.hasNext())
+        {
+            HexTile t = it.next();
+            if (t.getOwner() == p)
+            {
+                coords.add(t.getCoordinate());
+            }
+        }
+        return coords;
+    }
     
     
 }

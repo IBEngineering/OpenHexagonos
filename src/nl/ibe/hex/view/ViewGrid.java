@@ -22,31 +22,29 @@ public class ViewGrid {
     protected int radius; //In amount of hexagons.
     
     //For spatials
-    protected Node node;
+    protected Node gridNode;
     
     protected HashMap<HexCoordinate, HexSpatial> grid;
     
-    public ViewGrid(ConcurrentHashMap<HexCoordinate, HexTile> board, Node node) {
+    public ViewGrid(ConcurrentHashMap<HexCoordinate, HexTile> board, Node superNode) {
         
         this.grid = new HashMap<>();
-        this.node = new Node("hexgrid node");
-        node.attachChild(this.node);
+        this.gridNode = new Node("hexgrid node");
+        superNode.attachChild(gridNode);
         
         //Loop the HashMap and put everything on the screen
         
         for (Map.Entry<HexCoordinate, HexTile> entry : board.entrySet()) {
             HexCoordinate key = entry.getKey();
             
-            HexSpatial spatial = new HexSpatial(key);
+            HexSpatial spatial = new HexSpatial(key, gridNode);
             spatial.placeCorrectly();
-            spatial.setMaterial(Main.getColoredMaterial(new ColorRGBA(0.1f, 0.2f, 0.3f, 1)));
+            spatial.setMaterial(ModelSupplier.getBoardMaterial());
             
             if (entry.getValue().getOwner() != null)
             {
-                spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.Pink));
+                spatial.setMaterial(ModelSupplier.getColoredMaterial(ColorRGBA.Pink));
             }
-            
-            this.node.attachChild(spatial);
             
             grid.put(key, spatial);
         }

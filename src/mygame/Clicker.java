@@ -6,6 +6,7 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.math.Ray;
@@ -71,15 +72,18 @@ public class Clicker implements ActionListener {
                 
                 System.out.println("you clicked on something");
                 
-                Geometry geom = results.getClosestCollision().getGeometry();
-                
-                if(geom instanceof HexSpatial) {
-                    HexSpatial hex = (HexSpatial) geom;
-                    view.onClick(hex);
-                } else {
-                    Logger.getLogger("Clicker").log(Level.WARNING, "No hex has been found in node {0}", node.toString());
+                HexSpatial hs = null;
+                for (CollisionResult result : results) {
+                    
+                    //Check if it's a hexSpatial
+                    if(result.getGeometry() instanceof HexSpatial) {
+                        hs = (HexSpatial) result.getGeometry();
+                        view.onClick(hs);
+                    } else {
+                        Logger.getLogger("Clicker").log(Level.WARNING, "not a hex... {0}", node.toString());
+                    }
+                    
                 }
-                 
             }
         }
     }
