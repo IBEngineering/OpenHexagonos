@@ -7,6 +7,7 @@ package nl.ibe.hex.game;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -28,8 +29,38 @@ public class HexGame implements IHexGame {
         currPlayer = p1;
         this.board = new HexBoard(4);
         this.validator = new HexMoveValidator(this.board);
+        this.setStartPositions();
+        this.setBlockFields();
     }
 
+    private void setStartPositions()
+    {
+        int bSize = board.getRadius();
+        // 3 for p1
+        HexCoordinate p1_a = new HexCoordinate(bSize, 0, -bSize);
+        HexCoordinate p1_b = new HexCoordinate(-bSize, bSize, 0);
+        HexCoordinate p1_c = new HexCoordinate(0, -bSize, bSize);
+       
+        // 3 for p2
+        HexCoordinate p2_a = new HexCoordinate(0, bSize, -bSize);
+        HexCoordinate p2_b = new HexCoordinate(-bSize, 0, bSize);
+        HexCoordinate p2_c = new HexCoordinate(bSize, -bSize, 0);        
+        
+        board.getBoard().get(p1_a).setOwner(players[0]);
+        board.getBoard().get(p1_b).setOwner(players[0]);
+        board.getBoard().get(p1_c).setOwner(players[0]);
+        
+        board.getBoard().get(p2_a).setOwner(players[1]);
+        board.getBoard().get(p2_b).setOwner(players[1]);
+        board.getBoard().get(p2_c).setOwner(players[1]);
+        
+    }
+    
+    private void setBlockFields()
+    {
+        //None for now
+    }
+    
     @Override
     public void register(IHexGameListener listener) {
        listeners.add(listener);
@@ -96,13 +127,76 @@ public class HexGame implements IHexGame {
 
     @Override
     public boolean move(HexMove move) {
+        if (move.getPlayer() != getCurrentPlayer())
+        {
+            System.out.println("Not " + move.getPlayer() + "'s turn");
+            return false;
+        }
+        
+        if (!this.validator.isValidMove(move))
+        {
+            System.out.println("Invalid move");
+            return false;
+        }
+        
+        executeMove(move);       
         nextPlayer();
         return true;
+    }
+    
+    private void executeMove(HexMove move)
+    {
+        ConcurrentHashMap<HexCoordinate,HexTile> bord = board.getBoard();
+        ArrayList<HexTile> changedTiles = new ArrayList<>();
+        
+        //Determine if we do a move or clone
+        if (move.getFrom().distance(move.getTo()) < 2)
+        {
+            //Clone
+            HexTile dst = bord.get(move.getTo());
+            dst.setOwner(move.getPlayer());
+            changedTiles.add(dst);
+            
+        }
+        else
+        {
+            //move
+            HexTile dst = bord.get(move.getTo());
+            dst.setOwner(move.getPlayer());
+            changedTiles.add(dst);
+            
+            HexTile src = bord.get(move.getFrom());
+            src.setOwner(null);
+            changedTiles.add(src);
+
+        }
+        
+        //Do Neigbors
+        for (int i = 0; i < 6; i++)
+        {
+            HexCoordinate neigh = move.getTo().getNeighbor(i);
+            HexTile neighTile = bord.get(neigh);
+            
+            // If an existing tile
+            // and If not an empty tile
+            // and if not our tile
+            // and if not a blocker
+            if (neighTile != null &&
+                    neighTile.getOwner() != null && 
+                    neighTile.getOwner() != move.getPlayer() && 
+                    !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
+            {
+                neighTile.setOwner(currPlayer);
+                changedTiles.add(neighTile);
+            }
+        }
+        
+        this.notifyListenersTilesChanged(changedTiles);
     }
 
     @Override
     public ArrayList<HexCoordinate> getCloneTiles(HexCoordinate c) {
-        return c.ring(1);
+        return pruneImpossibleLocations(c.ring(1));
     }
 
     @Override

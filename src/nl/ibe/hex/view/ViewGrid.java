@@ -41,6 +41,11 @@ public class ViewGrid {
             spatial.placeCorrectly();
             spatial.setMaterial(Main.getColoredMaterial(new ColorRGBA(0.1f, 0.2f, 0.3f, 1)));
             
+            if (entry.getValue().getOwner() != null)
+            {
+                spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.Pink));
+            }
+            
             this.node.attachChild(spatial);
             
             grid.put(key, spatial);

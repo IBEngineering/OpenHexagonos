@@ -46,10 +46,10 @@ public class HexTile {
         neighbors[i] = h;
     }
     
-    public HexTile[] getNeighbors()
+   /* public HexTile[] getNeighbors()
     {
         return neighbors;
-    }
+    }*/
     
     public HexCoordinate getCoordinate()
     {
@@ -59,6 +59,12 @@ public class HexTile {
     public HexPlayer getOwner() {
         return owner;
     }
+
+    public void setOwner(HexPlayer owner) {
+        this.owner = owner;
+    }
+    
+    
     
     
 }

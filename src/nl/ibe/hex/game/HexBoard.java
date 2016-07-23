@@ -106,6 +106,12 @@ public class HexBoard {
         }
 
     }
+
+    public int getRadius() {
+        return radius;
+    }
+    
+    
     
     
 }

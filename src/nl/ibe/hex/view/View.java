@@ -108,7 +108,8 @@ public class View implements IHexGameListener{
             HexCoordinate c1 = selection.getCoord();
             HexCoordinate c2 = goal.getCoord();
             
-            HexPlayer p = checkPlayer();
+            //HexPlayer p = checkPlayer();
+            HexPlayer p = game.getCurrentPlayer();
             
             HexMove move = new HexMove(p, c1, c2);
             
@@ -130,11 +131,24 @@ public class View implements IHexGameListener{
             while (it.hasNext())
             {
                 HexCoordinate c = it.next();
-                LOG.log(Level.INFO,c.toString());
+                LOG.log(Level.FINE,c.toString());
                 HexSpatial spatial = grid.grid.get(c);
                 if (spatial != null)
                 {
                     spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.White));
+                }
+            }
+            
+            list = game.getMoveTiles(hex.getCoord());
+            it = list.iterator();
+            while (it.hasNext())
+            {
+                HexCoordinate c = it.next();
+                LOG.log(Level.FINE,c.toString());
+                HexSpatial spatial = grid.grid.get(c);
+                if (spatial != null)
+                {
+                    spatial.setMaterial(Main.getColoredMaterial(ColorRGBA.Gray));
                 }
             }
             
