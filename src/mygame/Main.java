@@ -57,6 +57,4 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("Pick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addListener(click, "Pick");
     }
-    
-    
 }

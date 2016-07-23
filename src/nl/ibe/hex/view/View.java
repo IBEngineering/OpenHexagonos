@@ -84,6 +84,8 @@ public class View implements IHexGameListener{
             
             app.getInputManager().addMapping(Clicker.mapping, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
             app.getInputManager().addListener(click, Clicker.mapping);
+            
+            ModelSupplier.announcement(app.getRootNode(), game.getCurrentPlayer().getType());
         }
         
         //Load the starters.
@@ -142,7 +144,7 @@ public class View implements IHexGameListener{
                     HexSpatial s = grid.getGrid().get(change.getEnd().getCoordinate());
                     System.out.println("spatial" + s.getOwnerType());
                     
-                            s.setOwner(conqueror);
+                    s.setOwner(conqueror);
                     
                     break;
                 }
@@ -188,6 +190,8 @@ public class View implements IHexGameListener{
      * @param hex   The HexSpatial clicked.
      */
     public void onClick(HexSpatial hex) {
+        
+        ModelSupplier.changePlayer(app.getRootNode(), game.getCurrentPlayer().getType());
         
         //Was something seleccted?
         if(selected) {

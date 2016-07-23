@@ -27,6 +27,7 @@ public class SupplyRouter {
     public static class SupplySettings {
         
         public ColorRGBA boardColor = new ColorRGBA(0.2f, 0.1f, 0.3f, 0.4f);
+        public float redApproximation = 0.4f;
         
         /**
          * THIS IS UNFINISHED.

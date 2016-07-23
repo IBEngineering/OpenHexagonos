@@ -7,6 +7,7 @@ package nl.ibe.hex.supply;
 
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
@@ -20,6 +21,8 @@ import nl.ibe.hex.game.HexPlayer;
  * @author MisterCavespider
  */
 public class ModelSupplier {
+
+    private static Geometry s;
     
     /**
      * SimplyCalles getPlayerShape().
@@ -60,6 +63,21 @@ public class ModelSupplier {
         spatial.setMaterial(MaterialSupplier.getPlayerMaterial(type));
         
         return spatial;
+    }
+    
+    public static void announcement(Node node, HexPlayer.Type type) {
+        s = getPlayerShape(type);
+        s.setLocalTranslation(0, -10, 0);
+        s.scale(5);
+        node.attachChild(s);
+    }
+    
+    public static void changePlayer(Node node, HexPlayer.Type type) {
+        node.detachChild(s);
+        s = getPlayerShape(type);
+        s.setLocalTranslation(0, -10, 0);
+        s.scale(5);
+        node.attachChild(s);
     }
     
 }

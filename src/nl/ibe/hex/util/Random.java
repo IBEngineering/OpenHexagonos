@@ -24,9 +24,12 @@ public class Random {
      * @param max   The maximum value.
      * @return      The random value.
      */
-    public static double rdm(double min, double max) {
+    public static double rdmD(double min, double max) {
         double delta = max - min;
-        double randomNr = min + Math.random()*delta;
+        java.util.Random r = new java.util.Random();
+        double rand = r.nextDouble();
+        
+        double randomNr = min + rand*delta;
         return randomNr;
     }
     
@@ -34,14 +37,22 @@ public class Random {
      * Calls and casts the other rdm().
      */
     public static float rdm(float min, float max) {
-        return (float) rdm((double) min, (double) max);
+        return (float) rdmD((double) min, (double) max);
     }
     
     /**
      * Calls and casts the other rdm().
      */
     public static int rdm(int min, int max) {
-        return (int) rdm((double) min, (double) max);
+        return (int) rdmD((double) min, (double) max);
     }
     
+    
+    public static double approximate(float original, float distort) {
+        float min = original - distort/2.0f;
+        float max = original + distort/2.0f;
+        
+        double returner = rdmD(min, max);
+        return returner;
+    }
 }

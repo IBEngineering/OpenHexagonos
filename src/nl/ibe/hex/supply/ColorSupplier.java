@@ -57,7 +57,9 @@ public class ColorSupplier {
      * @return  The colour of the board.
      */
     public static ColorRGBA getBoardColor() {
-        return SupplyRouter.getSettings().boardColor;
+        ColorRGBA c =  SupplyRouter.getSettings().boardColor.clone();
+        c.r = (float) Random.approximate(c.r, SupplyRouter.getSettings().redApproximation);
+        return c;
     }
     
 }
