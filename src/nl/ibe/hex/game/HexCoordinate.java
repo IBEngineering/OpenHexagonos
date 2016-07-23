@@ -63,7 +63,6 @@ public class HexCoordinate {
     public ArrayList<HexCoordinate> ring(int radius)
     {
         
-        System.out.println("this: " + this.toString());
         ArrayList<HexCoordinate> result = new ArrayList();
         HexCoordinate neigh4 = this.getNeighbor(4);
         //HexCoordinate cube = this.add(neigh4.scale(radius));
@@ -78,7 +77,6 @@ public class HexCoordinate {
         {
             for (int j =0; j < radius; j++)
             {
-                System.out.println("cube: " + cube.toString());
                 result.add(cube);
                 cube = cube.getNeighbor(i);
             }

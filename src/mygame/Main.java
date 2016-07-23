@@ -50,7 +50,7 @@ public class Main extends SimpleApplication {
         //Create the View
         View v = new View(this);
         g.register(v);
-        v.construct();
+        v.construct(p1, p2);
     }
     
     public void initMappings() {
@@ -58,15 +58,5 @@ public class Main extends SimpleApplication {
         inputManager.addListener(click, "Pick");
     }
     
-    public static Material getRandomMat() {
-        Material mat =  new Material(shortcut, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.randomColor());
-        return mat;
-    }
     
-    public static Material getColoredMaterial(ColorRGBA color) {
-        Material mat = new Material(shortcut, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", color);
-        return mat;
-    }
 }

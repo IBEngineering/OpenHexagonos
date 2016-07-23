@@ -193,9 +193,8 @@ public class HexGame implements IHexGame {
             {
                 neighTile.setOwner(currPlayer);
                 
-                HexTile src = bord.get(move.getFrom());
                 HexTile dst = bord.get(move.getTo());
-                HexChange change = new HexChange(src, dst, HexChange.Type.CONQUEST);
+                HexChange change = new HexChange(dst, neighTile, HexChange.Type.CONQUEST);
                 changedTiles.add(change);
             }
         }

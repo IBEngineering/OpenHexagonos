@@ -70,7 +70,7 @@ public class View implements IHexGameListener{
      * It will populate the ViewGrid using the board from 
      * the game. It will also create and register a clicker.
      */
-    public void construct() {
+    public void construct(HexPlayer p1, HexPlayer p2) {
         //Is there a game?
         if(game == null) {
             //No
@@ -84,6 +84,16 @@ public class View implements IHexGameListener{
             
             app.getInputManager().addMapping(Clicker.mapping, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
             app.getInputManager().addListener(click, Clicker.mapping);
+        }
+        
+        //Load the starters.
+        ArrayList<HexCoordinate> p1POS = game.getBoard().getPlayerPositions(p1);
+        for (HexCoordinate hexCoordinate : p1POS) {
+            grid.getGrid().get(hexCoordinate).setOwner(p1.getType());
+        }
+        ArrayList<HexCoordinate> p2POS = game.getBoard().getPlayerPositions(p2);
+        for (HexCoordinate hexCoordinate : p2POS) {
+            grid.getGrid().get(hexCoordinate).setOwner(p2.getType());
         }
     }
     
@@ -105,27 +115,38 @@ public class View implements IHexGameListener{
 
                     HexCoordinate c = change.getEnd().getCoordinate();
                     grid.getGrid().get(c).setOwner(change.getStart().getOwner().getType());
+                    break;
                 }
                 case JUMP: {
                     //A certain blob has to jump (through the air)
                     //To the end position.
                     
-                    HexPlayer.Type jumper = change.getStart().getOwner().getType();
+                    
+                    HexPlayer.Type jumper = change.getEnd().getOwner().getType();
                     
                     HexCoordinate s = change.getStart().getCoordinate();
                     HexCoordinate e = change.getEnd().getCoordinate();
                     
+                    ///test
                     grid.getGrid().get(s).setOwner(null);
                     grid.getGrid().get(e).setOwner(jumper);
+                    
+                    break;
                 }
                 case CONQUEST: {
                     //Some blob has been conquered by another blob.
                     
                     HexPlayer.Type conqueror = change.getStart().getOwner().getType();
-                    HexPlayer.Type ded = change.getStart().getOwner().getType();
+                    System.out.println(conqueror);
                     
-                    grid.getGrid().get(change.getStart().getCoordinate()).setOwner(conqueror);
+                    HexSpatial s = grid.getGrid().get(change.getEnd().getCoordinate());
+                    System.out.println("spatial" + s.getOwnerType());
+                    
+                            s.setOwner(conqueror);
+                    
+                    break;
                 }
+                    
             }
             
         }
@@ -188,6 +209,9 @@ public class View implements IHexGameListener{
             HexMove move = new HexMove(p, c1, c2);
             
             boolean canItMove = game.move(move);
+            if(canItMove) {
+                game.nextTurn();
+            }
             
             LOG.log(Level.INFO, "Can it move? {0}", canItMove);
             selected = false;
@@ -199,6 +223,7 @@ public class View implements IHexGameListener{
                 
                 value.setMaterial(MaterialSupplier.getColoredMaterial(ColorSupplier.getBoardColor()));
             }
+            
             
         } else {    //!selected
             //Select what we have here
@@ -236,6 +261,9 @@ public class View implements IHexGameListener{
             
             LOG.log(Level.INFO, "HexCoord(!selected): {0}", hex.getCoord());
         }
+        
+        
+        
     }
     
     /**

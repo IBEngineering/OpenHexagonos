@@ -89,7 +89,7 @@ public class HexSpatial extends Geometry {
         //Attach the stuff
         if(type != null) {
             ownerNode.attachChild(ModelSupplier.getPlayerShape(type));
-            ownerNode.attachChild(ParticleSupplier.getFire(ColorSupplier.getPlayerColor(type), ColorRGBA.White));
+            //ownerNode.attachChild(ParticleSupplier.getFire(ColorSupplier.getPlayerColor(type), ColorRGBA.White));
         }
     }
     
@@ -106,6 +106,10 @@ public class HexSpatial extends Geometry {
 
     public HexCoordinate getCoord() {
         return coord;
+    }
+
+    public HexPlayer.Type getOwnerType() {
+        return ownerType;
     }
     
     public Node getOwnerAttach() {
