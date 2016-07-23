@@ -96,7 +96,39 @@ public class View implements IHexGameListener{
         //The tiles have changed owner
         //Loop over them and change the blobs
         
-        
+        for (HexChange change : hexagons) {
+            
+            switch (change.getType()) {
+                case DUPLICATION: {
+                    //A certain blob has to create another blob.
+                    //The second blob should move to the correct position.
+
+                    HexCoordinate c = change.getEnd().getCoordinate();
+                    grid.getGrid().get(c).setOwner(change.getStart().getOwner().getType());
+                }
+                case JUMP: {
+                    //A certain blob has to jump (through the air)
+                    //To the end position.
+                    
+                    HexPlayer.Type jumper = change.getStart().getOwner().getType();
+                    
+                    HexCoordinate s = change.getStart().getCoordinate();
+                    HexCoordinate e = change.getEnd().getCoordinate();
+                    
+                    grid.getGrid().get(s).setOwner(null);
+                    grid.getGrid().get(e).setOwner(jumper);
+                }
+                case CONQUEST: {
+                    //Some blob has been conquered by another blob.
+                    
+                    HexPlayer.Type conqueror = change.getStart().getOwner().getType();
+                    HexPlayer.Type ded = change.getStart().getOwner().getType();
+                    
+                    grid.getGrid().get(change.getStart().getCoordinate()).setOwner(conqueror);
+                }
+            }
+            
+        }
     }
 
     /**
