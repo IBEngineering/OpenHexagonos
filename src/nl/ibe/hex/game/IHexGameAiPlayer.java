@@ -10,6 +10,6 @@ package nl.ibe.hex.game;
  * @author Christien
  */
 public interface IHexGameAiPlayer {
-     public HexMove getNexHexMove(HexBoard b);
+     public HexMove getNextHexMove(HexBoard b, HexPlayer currentPlayer, HexPlayer otherPlayer);
     
 }

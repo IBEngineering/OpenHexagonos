@@ -19,7 +19,7 @@ public class HexRandomAiPlayer extends HexPlayer implements IHexGameAiPlayer {
     }
     
     @Override
-    public HexMove getNexHexMove(HexBoard b)
+    public HexMove getNextHexMove(HexBoard b, HexPlayer currentPlayer, HexPlayer otherPlayer)
     {
         ArrayList<HexMove> moves = HexMoveValidator.getPossibleMoves(this, b);
               

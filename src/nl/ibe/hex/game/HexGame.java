@@ -18,6 +18,7 @@ public class HexGame implements IHexGame {
     private HexBoard board;
     private HexPlayer[] players = new HexPlayer[2];
     private HexPlayer currPlayer; 
+    private HexPlayer otherPlayer;
     private ArrayList<HexMove> gameHist = new ArrayList<>();
     private ArrayList<IHexGameListener> listeners = new ArrayList<>();
     
@@ -26,6 +27,7 @@ public class HexGame implements IHexGame {
         players[0] = p1;
         players[1] = p2;
         currPlayer = p1;
+        otherPlayer = p2;
         this.board = new HexBoard(4);
         this.setStartPositions();
         
@@ -128,10 +130,12 @@ public class HexGame implements IHexGame {
         if (currPlayer == players[0])
         {
             currPlayer = players[1];
+            otherPlayer = players[0];
         }
         else
         {
             currPlayer = players[0];
+            otherPlayer = players[1];
         }
         
         notifyListenersPlayerChanged(currPlayer);
@@ -144,7 +148,7 @@ public class HexGame implements IHexGame {
         // Decide on how to do this with ita 
         if (!currPlayer.isHuman() && !isLastMove && currPlayer instanceof IHexGameAiPlayer)
         {
-           HexMove aiMove = ((IHexGameAiPlayer)currPlayer).getNexHexMove(board);
+           HexMove aiMove = ((IHexGameAiPlayer)currPlayer).getNextHexMove(board, currPlayer, otherPlayer);
            this.move(aiMove);
            nextPlayer();
 
@@ -159,7 +163,7 @@ public class HexGame implements IHexGame {
         while (it.hasNext())
         {
             curr = it.next();
-            HexTile tile = HexBoard.board.get(curr);
+            HexTile tile = board.board.get(curr);
             
             if (  tile != null)
             {
@@ -198,6 +202,9 @@ public class HexGame implements IHexGame {
         return true;
     }
     
+    /*
+    * TODO: remove this and use the static function in HexMoveValidator
+    */
     private void executeMove(HexMove move)
     {
         ConcurrentHashMap<HexCoordinate,HexTile> bord = board.getBoard();

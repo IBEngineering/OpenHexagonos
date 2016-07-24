@@ -94,7 +94,7 @@ public class HexMoveValidator {
             
             for (HexCoordinate coord: ringlist)
             {
-                HexTile tile = HexBoard.board.get(coord);
+                HexTile tile = board.board.get(coord);
                 if (tile != null)
                 {
                     if (tile.getOwner() == null)
@@ -153,6 +153,68 @@ public class HexMoveValidator {
         return points;
         
         
+    }
+    
+    public static void executeMove(HexMove move, HexBoard board, HexPlayer currPlayer)
+    {
+        ConcurrentHashMap<HexCoordinate,HexTile> bord = board.getBoard();
+        ArrayList<HexChange> changedTiles = new ArrayList<>();
+        
+        //Determine if we do a move or clone
+        if (move.getFrom().distance(move.getTo()) < 2)
+        {
+            //Clone
+            HexTile src = bord.get(move.getFrom());
+            HexTile dst = bord.get(move.getTo());
+            dst.setOwner(move.getPlayer());
+            
+            //increment points by 1
+            move.getPlayer().incrementPoints();
+            
+            HexChange change = new HexChange(src, dst, HexChange.Type.DUPLICATION);
+            changedTiles.add(change);
+            
+        }
+        else
+        {
+            //Jump
+            HexTile src = bord.get(move.getFrom());
+            HexTile dst = bord.get(move.getTo());
+            dst.setOwner(move.getPlayer());
+            
+            src.setOwner(null);
+            
+            HexChange change = new HexChange(src, dst, HexChange.Type.JUMP);
+            changedTiles.add(change);
+
+        }
+        
+        //Defeat Neigbors
+        for (int i = 0; i < 6; i++)
+        {
+            HexCoordinate neigh = move.getTo().getNeighbor(i);
+            HexTile neighTile = bord.get(neigh);
+            
+            // If an existing tile
+            // and If not an empty tile
+            // and if not our tile
+            // and if not a blocker
+            if (neighTile != null &&
+                    neighTile.getOwner() != null && 
+                    neighTile.getOwner() != move.getPlayer() && 
+                    !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
+            {
+                neighTile.getOwner().decrementPoints();
+                move.getPlayer().incrementPoints();
+                
+                neighTile.setOwner(currPlayer);
+                
+                HexTile dst = bord.get(move.getTo());
+                HexChange change = new HexChange(dst, neighTile, HexChange.Type.CONQUEST);
+                changedTiles.add(change);
+                
+            }
+        }
     }
     
 }

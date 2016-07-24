@@ -8,6 +8,7 @@ package nl.ibe.hex.game;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HexBoard {
     
-    protected static ConcurrentHashMap<HexCoordinate, HexTile> board;
+    protected ConcurrentHashMap<HexCoordinate, HexTile> board;
     private final int radius;
     
     public HexBoard(int radius)
@@ -129,5 +130,23 @@ public class HexBoard {
         return coords;
     }
     
+    @Override
+    public HexBoard clone() throws CloneNotSupportedException
+    {
+        super.clone();
+        HexBoard b = new HexBoard(radius);
+        b.board = null;
+        
+        ConcurrentHashMap<HexCoordinate, HexTile> nBoard = new ConcurrentHashMap();
+         
+        for (Map.Entry<HexCoordinate, HexTile> entry : board.entrySet()) {
+            HexCoordinate key = entry.getKey();
+            HexTile value = entry.getValue();
+            nBoard.put(key.clone(), value.clone());
+        }
+       
+        b.board = nBoard;
+        return b;
+    }
     
 }
