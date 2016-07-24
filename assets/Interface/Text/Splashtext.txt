@@ -1,3 +1,5 @@
 This is splash text
 Hello
 This is randomly chosen
+Wow even more text
+How much can there be?

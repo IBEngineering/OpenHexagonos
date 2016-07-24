@@ -6,6 +6,8 @@
     
     <screen id="start" controller="mygame.StartState">
         
+        <layer id="background" backgroundColor="#00f8" />
+        
         <layer id="foreground" childLayout="vertical">
             
             <panel id="title" childLayout="vertical" width="100%" height="80%">
@@ -30,6 +32,8 @@
     
     <screen id="firstMenu" controller="mygame.StartState">
         
+        <layer id="background" backgroundColor="#00f8" />
+        
         <layer id="foreground" childLayout="vertical" >
             
             <panel id="start button panel" childLayout="center" width="100%" height="50%">
@@ -49,6 +53,8 @@
     </screen>
     
     <screen id="player selection" controller="mygame.StartState">
+        
+        <layer id="background" backgroundColor="#0f28" />
         
         <layer id="foreground" childLayout="horizontal">
             

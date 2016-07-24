@@ -8,7 +8,9 @@ import com.jme3.system.AppSettings;
 import nl.ibe.hex.game.HexGame;
 import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.supply.SupplyRouter;
 import nl.ibe.hex.view.View;
+import nl.ibe.hex.view.update.UpdateProvider;
 
 /**
  * test
@@ -43,11 +45,22 @@ public class Main extends SimpleApplication {
         flyCam.setMoveSpeed(50);
         flyCam.setDragToRotate(true);
         
+        SupplyRouter.startRouting(this, new SupplyRouter.SupplySettings(true));
+        
         //Create 2 appStates and attach 1.
         startState = new StartState();
         
         stateManager.attach(startState);
     }
+
+    @Override
+    public void simpleUpdate(float tpf) {
+        
+        UpdateProvider.update(tpf);
+        
+    }
+    
+    
     
     public void initMappings() {
         inputManager.addMapping("Pick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));

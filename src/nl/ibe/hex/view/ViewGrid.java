@@ -43,6 +43,8 @@ public class ViewGrid {
         
         //Loop the HashMap and put everything on the screen
         
+        int counter = 0;
+        
         for (Map.Entry<HexCoordinate, HexTile> entry : board.entrySet()) {
             HexCoordinate key = entry.getKey();
             
@@ -56,7 +58,10 @@ public class ViewGrid {
             }
             
             grid.put(key, spatial);
+            counter++;
         }
+        
+        System.err.println("======" + counter + "======");
         
     }
 

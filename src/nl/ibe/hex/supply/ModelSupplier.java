@@ -5,6 +5,8 @@
  */
 package nl.ibe.hex.supply;
 
+import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
@@ -12,6 +14,9 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.util.Random;
+import nl.ibe.hex.view.HexagonMesh;
+import nl.ibe.hex.supply.SupplyRouter.*;
 
 /**
  * Supplies models, both as Spatials and as Geometries.
@@ -34,6 +39,17 @@ public class ModelSupplier {
      */
     public static Spatial getPlayerModel(HexPlayer p) {
         return getPlayerShape(p.getType());
+    }
+    
+    public static Geometry getRandomHexagon(float min_radius) {
+        
+        float radius = Random.rdm(min_radius, min_radius+30);
+        Mesh mesh = new HexagonMesh(radius);
+        
+        Geometry g = new Geometry("a random hexagon", mesh);
+        g.setMaterial(new Material(SupplyRouter.assetManager, "Common/MatDefs/Misc/Unshaded.j3md"));
+        
+        return g;
     }
     
     /**

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class HexRandomAiPlayer extends HexPlayer implements IHexGameAiPlayer {
     
     public HexRandomAiPlayer(String name, Type type) {
-        super("HexRandomAI", type);
+        super(name, type);
         this.human = false;
     }
     
