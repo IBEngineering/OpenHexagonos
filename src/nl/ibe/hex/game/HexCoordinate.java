@@ -41,8 +41,7 @@ public class HexCoordinate {
     public HexCoordinate getNeighbor(int i)
     {
         switch(i) {
-            // Order seems wrong
-            case 0:                                 //y //x //z   xyz
+            case 0:
                 return this.add(new HexCoordinate( -1, +1, 0));
             case 1:
                 return this.add(new HexCoordinate( 0, +1, -1));                
@@ -65,7 +64,6 @@ public class HexCoordinate {
         
         ArrayList<HexCoordinate> result = new ArrayList();
         HexCoordinate neigh4 = this.getNeighbor(4);
-        //HexCoordinate cube = this.add(neigh4.scale(radius));
         
         HexCoordinate cube = neigh4;
         for (int i =1; i < radius; i++)

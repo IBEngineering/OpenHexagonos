@@ -6,7 +6,9 @@
 package nl.ibe.hex.game;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import jdk.nashorn.internal.objects.NativeArray;
 
 /**
  *
@@ -14,14 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HexMoveValidator {
     
-    private HexBoard board;
-    
-    public HexMoveValidator(HexBoard board)
-    {
-        this.board = board;
-    }
-    
-    public boolean isValidMove(HexMove move)
+    public static boolean isValidMove(HexMove move, HexBoard board)
     {
         ConcurrentHashMap<HexCoordinate, HexTile> bord = board.getBoard();
         // Check if the distance between a and b is < 3
@@ -62,8 +57,64 @@ public class HexMoveValidator {
             System.out.println("Destination occupied");
             return false;
         }
-
+        System.out.println("This is a valid move !");
         return true;
+    }
+    
+    /*
+    * Returns all possible moves for player P
+    * Maybe change this to a list of moves that we prune during the game.
+    * That would be more efficient :)
+    */
+    
+    public static ArrayList<HexMove> getPossibleMoves(HexPlayer p, HexBoard board)
+    {
+        ArrayList<HexMove> moves = new ArrayList<>();
+        ConcurrentHashMap<HexCoordinate, HexTile> bord = board.getBoard();
+        
+        
+        // Get all tiles owned by P
+        ArrayList<HexTile> pTiles = new ArrayList<>();        
+        for (Map.Entry<HexCoordinate, HexTile> entry : bord.entrySet()) {
+            HexCoordinate c = entry.getKey();
+            HexTile t = entry.getValue();
+            
+            if (t.getOwner() == p)
+            {
+                pTiles.add(t);
+            }
+        }
+        
+        // Get All possible moves
+        for (HexTile ourTile: pTiles)
+        {
+            HexCoordinate c = ourTile.getCoordinate();
+            ArrayList<HexCoordinate> ringlist = c.ring(1);
+            ringlist.addAll(c.ring(2));
+            
+            for (HexCoordinate coord: ringlist)
+            {
+                HexTile tile = HexBoard.board.get(coord);
+                if (tile != null)
+                {
+                    if (tile.getOwner() == null)
+                    {
+                        moves.add(new HexMove(p, c, coord));
+                    }
+                }
+            }
+        }
+        
+        //Dump moves !
+        /*
+        System.out.println("Dumping moves for player " + p.toString());
+        for (HexMove m : moves)
+        {
+            System.out.println(m.toString());
+        }
+        */
+        
+        return moves;
     }
     
     

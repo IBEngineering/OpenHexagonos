@@ -286,4 +286,19 @@ public class View implements IHexGameListener{
             return game.getCurrentPlayer();
         }
     }
+
+    @Override
+    public void gameEnd(HexPlayer winner) {
+        if (winner != null)
+        {
+            System.out.println("Player " + winner.getName() + "won the game with " + winner.getPoints() + " points!");
+        }
+        else
+        {
+            System.out.println("Stale mate !");
+        }
+        
+    }
+    
+    
 }

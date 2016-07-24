@@ -14,8 +14,9 @@ import java.util.Objects;
 public class HexPlayer {
     
     private String name;
-    private boolean human = true;
+    boolean human = true;
     private Type type;
+    private int points = 0;
     
     public static enum Type {
         
@@ -40,6 +41,22 @@ public class HexPlayer {
 
     public Type getType() {
         return type;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    public void incrementPoints() {
+        points = points + 1;
+    }
+    
+    public void decrementPoints() {
+        points = points - 1;
     }
 
     @Override
@@ -77,7 +94,7 @@ public class HexPlayer {
 
     @Override
     public String toString() {
-        return "HexPlayer{" + "name=" + name + ", human=" + human + ", type=" + type + '}';
+        return "HexPlayer{" + "name=" + name + ", human=" + human + ", type=" + type + ", points=" + points + '}';
     }
     
     

@@ -20,7 +20,6 @@ public class HexGame implements IHexGame {
     private HexPlayer currPlayer; 
     private ArrayList<HexMove> gameHist = new ArrayList<>();
     private ArrayList<IHexGameListener> listeners = new ArrayList<>();
-    private HexMoveValidator validator;
     
     public HexGame (HexPlayer p1, HexPlayer p2)
     {
@@ -28,7 +27,6 @@ public class HexGame implements IHexGame {
         players[1] = p2;
         currPlayer = p1;
         this.board = new HexBoard(4);
-        this.validator = new HexMoveValidator(this.board);
         this.setStartPositions();
         this.setBlockFields();
     }
@@ -50,10 +48,14 @@ public class HexGame implements IHexGame {
         board.getBoard().get(p1_b).setOwner(players[0]);
         board.getBoard().get(p1_c).setOwner(players[0]);
         
+        players[0].setPoints(3);
+        
         board.getBoard().get(p2_a).setOwner(players[1]);
         board.getBoard().get(p2_b).setOwner(players[1]);
         board.getBoard().get(p2_c).setOwner(players[1]);
         
+        players[1].setPoints(3);
+
     }
     
     private void setBlockFields()
@@ -84,9 +86,35 @@ public class HexGame implements IHexGame {
             it.next().tilesChanged(hexagons);
         }           
     }
+    
+    private void notifyListenersGameEnd(HexPlayer player)
+    {
+        Iterator<IHexGameListener> it = listeners.iterator();
+        while(it.hasNext())
+        {
+            it.next().gameEnd(player);
+        }           
+    }
 
+    private void decideWinner()
+    {
+        if (players[0].getPoints() == players[1].getPoints())
+        {
+            notifyListenersGameEnd(null);
+        }
+        else if (players[0].getPoints() > players[1].getPoints())
+        {
+            notifyListenersGameEnd(players[0]);
+        }
+        else
+        {
+            notifyListenersGameEnd(players[1]);
+        }
+    }
+    
     private void nextPlayer()
     {
+        
         if (currPlayer == players[0])
         {
             currPlayer = players[1];
@@ -95,7 +123,22 @@ public class HexGame implements IHexGame {
         {
             currPlayer = players[0];
         }
+        
         notifyListenersPlayerChanged(currPlayer);
+        boolean isLastMove = HexMoveValidator.getPossibleMoves(currPlayer, board).isEmpty();
+        if (isLastMove)
+        {
+            decideWinner();
+        }
+        
+        // Decide on how to do this with ita 
+        if (!currPlayer.isHuman() && !isLastMove && currPlayer instanceof IHexGameAiPlayer)
+        {
+           HexMove aiMove = ((IHexGameAiPlayer)currPlayer).getNexHexMove(board);
+           this.move(aiMove);
+           nextPlayer();
+
+        }
     }
     
     private ArrayList<HexCoordinate> pruneImpossibleLocations(ArrayList<HexCoordinate> input)
@@ -133,7 +176,7 @@ public class HexGame implements IHexGame {
             return false;
         }
         
-        if (!this.validator.isValidMove(move))
+        if (!HexMoveValidator.isValidMove(move, board))
         {
             System.out.println("Invalid move");
             return false;
@@ -157,6 +200,9 @@ public class HexGame implements IHexGame {
             HexTile src = bord.get(move.getFrom());
             HexTile dst = bord.get(move.getTo());
             dst.setOwner(move.getPlayer());
+            
+            //increment points by 1
+            move.getPlayer().incrementPoints();
             
             HexChange change = new HexChange(src, dst, HexChange.Type.DUPLICATION);
             changedTiles.add(change);
@@ -191,11 +237,15 @@ public class HexGame implements IHexGame {
                     neighTile.getOwner() != move.getPlayer() && 
                     !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
             {
+                neighTile.getOwner().decrementPoints();
+                move.getPlayer().incrementPoints();
+                
                 neighTile.setOwner(currPlayer);
                 
                 HexTile dst = bord.get(move.getTo());
                 HexChange change = new HexChange(dst, neighTile, HexChange.Type.CONQUEST);
                 changedTiles.add(change);
+                
             }
         }
         

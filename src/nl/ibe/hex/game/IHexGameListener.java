@@ -16,5 +16,6 @@ public interface IHexGameListener {
     public void tilesChanged(ArrayList<HexChange> hexagons);
     public void playerChanged(HexPlayer player);
     public void registeredAt(IHexGame game);
+    public void gameEnd(HexPlayer winner);
        
 }
