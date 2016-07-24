@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<nifty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
+    
+    <useControls filename="nifty-default-controls.xml"/>
+    <useStyles filename="nifty-default-styles.xml"/>
+    
+    <screen id="start" controller="mygame.StartState">
+        
+        <layer id="foreground" childLayout="vertical">
+            
+            <panel id="title" childLayout="vertical" width="100%" height="80%">
+                
+                <panel id="splash" childLayout="center" width="15%" align="right" height="20%">
+                    <control name="label" id="splashText" color="f44f" text="${CALL.getSplashText()}"/>
+                </panel>
+                
+                <control id="titleText" name="label" text="OpenHex v0.0.2" />
+                
+            </panel>
+            
+            <panel id="info" childLayout="vertical" width="100%" height="20%">
+                <control name="button" id="infoText" label="Press any key to continue">
+                    <interact onClick="gotoScreen(firstMenu)" />
+                </control>
+            </panel>
+            
+        </layer>
+        
+    </screen>
+    
+    <screen id="firstMenu" controller="mygame.StartState">
+        
+        <layer id="foreground" childLayout="vertical" >
+            
+            <panel id="start button panel" childLayout="center" width="100%" height="50%">
+                <control id="startButton" name="button" label="START" width="60%" height="30%">
+                    <interact onClick="gotoScreen(player selection)" />
+                </control>
+            </panel>
+            
+            <panel id="settings button panel" childLayout="center" width="100%" height="50%">
+                <control id="settingsButton" name="button" label="SETTINGS" width="60%" height="30%">
+                    <interact onClick="onNiftyButton(settings)" />
+                </control>
+            </panel>
+            
+        </layer>
+        
+    </screen>
+    
+    <screen id="player selection" controller="mygame.StartState">
+        
+        <layer id="foreground" childLayout="horizontal">
+            
+            <control name="radioButtonGroup" id="PlayerButtons1" />
+            
+            <panel id="player1" childLayout="vertical">
+                
+                <panel id="info" childLayout="center" width="100%" height="25%">
+                    <control name="label" id="infoText" text="Choose your type!"/>
+                </panel>
+                
+                <panel id="radios" childLayout="vertical" width="100%" height="25%">
+                    
+                    <panel id="radio1" childLayout="center" align="center" width="70%" height="20%">
+                        
+                       <control name="label" id="CellText" text="Cell" align="left"/>
+                       <control name="radioButton" id="cell" group="PlayerButtons1" /> 
+                        
+                    </panel>
+                    
+                    <panel id="radio2" childLayout="center" align="center" width="70%" height="20%">
+                        
+                        <control name="label" id="BacText" text="Bacteria" align="left"/>
+                        <control name="radioButton" id="bac" group="PlayerButtons1" />
+                        
+                    </panel>
+                    
+                </panel>
+                
+                <panel id="naming" childLayout="center" width="20%" height="10%" align="center">
+                    <control name="textfield" id="namingTextField" text="your name here" width="75%" height="85%" />
+                </panel>
+                
+                <control name="button" id="lastButton" label="GO ->" align="center">
+                    <interact onClick="onNiftyClick(lastToGame)"/>
+                </control>
+                
+            </panel>
+            
+        </layer>
+        
+    </screen>
+    
+</nifty>

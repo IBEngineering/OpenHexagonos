@@ -5,6 +5,14 @@
  */
 package nl.ibe.hex.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.TextFormatter;
+
 /**
  * Just a helper class.
  * 
@@ -16,6 +24,8 @@ package nl.ibe.hex.util;
  * @author MisterCavespider
  */
 public class Random {
+    
+    public static final Logger LOG = Logger.getLogger(Random.class.getName());
     
     /**
      * Generates a random number between min and max.
@@ -54,5 +64,24 @@ public class Random {
         
         double returner = rdmD(min, max);
         return returner;
+    }
+    
+    public static String chooseRandomText(String pathToFile) {
+        if(!pathToFile.endsWith(".txt")) {
+            LOG.log(Level.WARNING, "Trying to get text from a non-text file," + "/n" +
+                    "suspicious...");
+        }
+        
+        List<String> list = null;
+        try {
+            list = TextReader.readFile(pathToFile);
+        } catch (IOException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
+        
+        int size = list.size();
+        int index = rdm(0, size);
+        
+        return list.get(index);
     }
 }

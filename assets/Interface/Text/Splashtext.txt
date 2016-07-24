@@ -1,0 +1,3 @@
+This is splash text
+Hello
+This is randomly chosen

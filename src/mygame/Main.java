@@ -4,16 +4,10 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import nl.ibe.hex.game.HexGame;
 import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
-import nl.ibe.hex.game.HexRandomAiPlayer;
-import nl.ibe.hex.supply.ModelSupplier;
 import nl.ibe.hex.view.View;
 
 /**
@@ -34,8 +28,13 @@ public class Main extends SimpleApplication {
         app.showSettings = false;
         app.start();
         
+        app.setDisplayStatView(false);
+        app.setDisplayFps(false);
+        
     }
     private Clicker click;
+    private StartState startState;
+    private GameState gameState;
 
     @Override
     public void simpleInitApp() {
@@ -44,21 +43,20 @@ public class Main extends SimpleApplication {
         flyCam.setMoveSpeed(50);
         flyCam.setDragToRotate(true);
         
-        //Create the Game
-        HexPlayer p1 = new HexPlayer("One", HexPlayer.Type.CELL);
-        //HexPlayer p2 = new HexPlayer("Two", HexPlayer.Type.BACTERIA);
-        //HexPlayer p2 = new HexRandomAiPlayer("Two", HexPlayer.Type.BACTERIA);
-        HexPlayer p2 = new HexOneStepAiPlayer("Two", HexPlayer.Type.BACTERIA);
-        HexGame g = new HexGame(p1, p2);
+        //Create 2 appStates and attach 1.
+        startState = new StartState();
         
-        //Create the View
-        View v = new View(this);
-        g.register(v);
-        v.construct(p1, p2);
+        stateManager.attach(startState);
     }
     
     public void initMappings() {
         inputManager.addMapping("Pick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addListener(click, "Pick");
+    }
+    
+    public void startGame(HexPlayer p1, HexPlayer p2) {
+        stateManager.detach(startState);
+        gameState = new GameState(p1, p2);
+        stateManager.attach(gameState);
     }
 }
