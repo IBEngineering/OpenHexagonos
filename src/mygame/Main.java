@@ -10,6 +10,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import nl.ibe.hex.game.HexGame;
+import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.HexRandomAiPlayer;
 import nl.ibe.hex.supply.ModelSupplier;
@@ -46,7 +47,8 @@ public class Main extends SimpleApplication {
         //Create the Game
         HexPlayer p1 = new HexPlayer("One", HexPlayer.Type.CELL);
         //HexPlayer p2 = new HexPlayer("Two", HexPlayer.Type.BACTERIA);
-        HexPlayer p2 = new HexRandomAiPlayer("Two", HexPlayer.Type.BACTERIA);
+        //HexPlayer p2 = new HexRandomAiPlayer("Two", HexPlayer.Type.BACTERIA);
+        HexPlayer p2 = new HexOneStepAiPlayer("Two", HexPlayer.Type.BACTERIA);
         HexGame g = new HexGame(p1, p2);
         
         //Create the View

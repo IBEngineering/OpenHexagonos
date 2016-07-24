@@ -118,6 +118,41 @@ public class HexMoveValidator {
     }
     
     
-    
+    public static int getMoveValue(HexMove move, HexBoard board)
+    {
+        ConcurrentHashMap<HexCoordinate, HexTile> bord = board.getBoard();
+        
+        ArrayList<HexCoordinate> neighs = move.getTo().ring(1);
+            
+        int points = 0;
+        
+        //If we do a clone we get 1 point
+        if (move.getFrom().distance(move.getTo()) == 1)
+        {
+            points = points + 1;
+        }
+        
+        for(HexCoordinate c : neighs)
+        {
+            HexTile t = bord.get(c);
+            if (t != null)
+            {
+                if (t.getOwner() != null)
+                {
+                    if (t.getOwner().getType() != HexPlayer.Type.BLOCKER)
+                    {
+                        if (t.getOwner() != move.getPlayer())
+                        {
+                            points = points + 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return points;
+        
+        
+    }
     
 }

@@ -28,6 +28,7 @@ public class HexGame implements IHexGame {
         currPlayer = p1;
         this.board = new HexBoard(4);
         this.setStartPositions();
+        
         this.setBlockFields();
     }
 
@@ -60,7 +61,16 @@ public class HexGame implements IHexGame {
     
     private void setBlockFields()
     {
-        //None for now
+        HexPlayer blocker = new HexPlayer("blocker", HexPlayer.Type.BLOCKER);
+
+
+        HexCoordinate b1 = new HexCoordinate(1, 0, -1);
+        HexCoordinate b2 = new HexCoordinate(-1, 1, 0);
+        HexCoordinate b3 = new HexCoordinate(0, -1, 1);
+        
+        board.getBoard().get(b1).setOwner(blocker);
+        board.getBoard().get(b2).setOwner(blocker);
+        board.getBoard().get(b3).setOwner(blocker);
     }
     
     @Override
