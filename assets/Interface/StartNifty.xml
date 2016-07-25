@@ -13,10 +13,10 @@
             <panel id="title" childLayout="vertical" width="100%" height="80%">
                 
                 <panel id="splash" childLayout="center" width="15%" align="right" height="20%">
-                    <control name="label" id="splashText" color="f44f" text="${CALL.getSplashText()}"/>
+                    <control name="label" id="splashText" color="f44f" text="${CALL.getText(splash)}"/>
                 </panel>
                 
-                <control id="titleText" name="label" text="OpenHex v0.0.2" />
+                <control id="titleText" name="label" text="${CALL.getText(title)}" />
                 
             </panel>
             

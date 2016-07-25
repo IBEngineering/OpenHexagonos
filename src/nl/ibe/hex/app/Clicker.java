@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame;
+package nl.ibe.hex.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.collision.CollisionResult;

@@ -12,7 +12,7 @@ import com.jme3.math.ColorRGBA;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.*;
-import mygame.Clicker;
+import nl.ibe.hex.app.Clicker;
 import nl.ibe.hex.game.*;
 import nl.ibe.hex.supply.*;
 

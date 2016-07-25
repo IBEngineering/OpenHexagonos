@@ -1,5 +1,8 @@
 package mygame;
 
+import nl.ibe.hex.app.GameState;
+import nl.ibe.hex.app.StartState;
+import nl.ibe.hex.app.Clicker;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.MouseInput;
