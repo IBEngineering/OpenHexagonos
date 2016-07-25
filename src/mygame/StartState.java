@@ -21,6 +21,7 @@ import de.lessvoid.nifty.screen.ScreenController;
 import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.HexRandomAiPlayer;
+import nl.ibe.hex.game.HexTwoStepAiPLayer;
 import nl.ibe.hex.supply.ModelSupplier;
 import nl.ibe.hex.util.Random;
 import nl.ibe.hex.view.update.UpdateListener;
@@ -114,9 +115,10 @@ public class StartState extends AbstractAppState implements ScreenController, Up
             TextField textField = nifty.getCurrentScreen().findNiftyControl("namingTextField", TextField.class);
             String name = textField.getDisplayedText();
             
-            HexPlayer human = new HexRandomAiPlayer(name, type);
-            HexPlayer ai = new HexOneStepAiPlayer("smart ai", oppType);
-            
+//            HexPlayer human = new HexPlayer(name, type);
+            HexPlayer human = new HexOneStepAiPlayer(name, type);
+            HexPlayer ai = new HexTwoStepAiPLayer("smart ai", oppType);
+//            HexPlayer ai = new HexOneStepAiPlayer("smart ai", oppType);
             Main m = (Main) app;
             m.startGame(human, ai);
         }

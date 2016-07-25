@@ -130,10 +130,9 @@ public class HexBoard {
         return coords;
     }
     
-    @Override
-    public HexBoard clone() throws CloneNotSupportedException
+
+    public HexBoard getDuplicate()
     {
-        super.clone();
         HexBoard b = new HexBoard(radius);
         b.board = null;
         
@@ -142,7 +141,7 @@ public class HexBoard {
         for (Map.Entry<HexCoordinate, HexTile> entry : board.entrySet()) {
             HexCoordinate key = entry.getKey();
             HexTile value = entry.getValue();
-            nBoard.put(key.clone(), value.clone());
+            nBoard.put(key.getDuplicate(), value.getDuplicate());
         }
        
         b.board = nBoard;

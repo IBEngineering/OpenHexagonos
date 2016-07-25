@@ -122,10 +122,8 @@ public class HexCoordinate {
         return true;
     }
     
-    @Override
-    public HexCoordinate clone() throws CloneNotSupportedException
+    public HexCoordinate getDuplicate()
     {
-        super.clone();
         return new HexCoordinate(x, y, z);
     }
     

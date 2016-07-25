@@ -18,6 +18,9 @@ import java.util.logging.Logger;
  */
 public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
     
+    private HexStateTreeNode root;
+    private static int depth = 2;
+    
     public HexTwoStepAiPLayer(String name, Type type) {
         super(name, type);
         this.human = false;
@@ -26,46 +29,36 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
     @Override
     public HexMove getNextHexMove(HexBoard b,HexPlayer currentPlayer, HexPlayer otherPlayer)
     {
-        //Get all the moves
-        ArrayList<HexMove> allMoves = HexMoveValidator.getPossibleMoves(this, b);
-     
-        //Create boards for them
-        ArrayList<HexBoard> hexBoards = new ArrayList<>();
-        for (int i = 0; i < allMoves.size(); i++)
-        {
-            try {
-                hexBoards.add(b.clone());
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(HexTwoStepAiPLayer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            HexBoard currBoard = hexBoards.get(i);
-            HexMoveValidator.executeMove(allMoves.get(i), currBoard, this);
-        }
-
-        HashMap <Integer,ArrayList<HexMove>> moveMap = new HashMap<Integer,ArrayList<HexMove>>();
+        root = new HexStateTreeNode(b, currentPlayer, otherPlayer, null, true);
+        root.generateChildren();
         
-        for (HexMove m : allMoves)
+        
+        ArrayList<HexStateTreeNode> nodes = root.getChildren();
+        for (int i = 0; i < depth; i++)
         {
-            Integer moveVal = HexMoveValidator.getMoveValue(m, b);
-
-            ArrayList moves = moveMap.get(moveVal);
-            if (moves == null)
+            for(HexStateTreeNode node : nodes)
             {
-                moves = new ArrayList();
+                node.generateChildren();
+                nodes = node.getChildren();
             }
-            moves.add(m);
-            moveMap.put(moveVal, moves);
         }
+
+        System.out.println(root.toString());
         
-        Integer[] moveValues = moveMap.keySet().toArray(new Integer[moveMap.size()]);
-        Arrays.sort(moveValues);
-        
-        Integer highest = moveValues[moveValues.length -1];
-        
-        ArrayList<HexMove> bestMoves = moveMap.get(highest);
-        
-        int random = (int) ( Math.random() * bestMoves.size() );
-        
-        return bestMoves.get(random);
+        int bestMoveVal = Integer.MIN_VALUE;
+        HexMove bestMove = null;
+        nodes = root.getChildren();
+        for(HexStateTreeNode node : nodes)
+        {
+            int val = node.accumulatePoints(node);
+            System.out.println("int val " + val);
+            if (val > bestMoveVal)
+            {
+                bestMoveVal = val;
+                bestMove = node.getMove();
+            }
+        }
+        System.out.println("bestMove: " + bestMove);
+        return bestMove;
     }
 }
