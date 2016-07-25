@@ -5,13 +5,15 @@
  */
 package nl.ibe.hex.util;
 
+import com.jme3.math.ColorRGBA;
+
 /**
  *
  * @author MisterCavespider
  */
 public class Relator {
     
-    protected static char base;
+    protected static char base = 96;
     
     /**
      * Gets the relativity of value to maxValue.
@@ -40,19 +42,19 @@ public class Relator {
     
     public static char toHexadecimal(double value, double maxValue) {
         
-        int hexDecDouble = (int) relate(value, maxValue, 16);
+        double hexDecDouble = (int) relate(value, maxValue, 15);
         
         char c;
         
         if(hexDecDouble > 9) {
             //use abcdef
-            int diff = 16-hexDecDouble;
+            int diff = (int) (hexDecDouble-9);
             
             c = (char) (base + diff);
         } else {
             
             //Gets the first (and only) char of the String of the int
-            c = Integer.toString(hexDecDouble).charAt(0);
+            c = Integer.toString((int) hexDecDouble).charAt(0);
             
         }
         

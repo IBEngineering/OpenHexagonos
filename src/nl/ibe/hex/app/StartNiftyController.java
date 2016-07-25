@@ -17,14 +17,14 @@ import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
 import de.lessvoid.nifty.controls.RadioButtonGroupStateChangedEvent;
 import de.lessvoid.nifty.controls.TextField;
-import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import mygame.Main;
 import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
-import nl.ibe.hex.game.HexRandomAiPlayer;
 import nl.ibe.hex.supply.ColorSupplier;
+import nl.ibe.hex.game.HexTwoStepAiPLayer;
+import nl.ibe.hex.supply.NiftySupplier;
 import nl.ibe.hex.util.Random;
 
 /**
@@ -52,7 +52,7 @@ public class StartNiftyController implements ScreenController, RawInputListener 
     @Override
     public void onStartScreen() {
         
-    }
+        }
 
     @Override
     public void onEndScreen() {
@@ -150,12 +150,30 @@ public class StartNiftyController implements ScreenController, RawInputListener 
 
     @Override
     public void onMouseButtonEvent(MouseButtonEvent evt) {
+        //Some key has been pressed
         
+        System.out.println("key!");
+        
+        if(nifty.getCurrentScreen().getScreenId().equals("start")) {
+            //Any key has been pressed!
+            //Goto following screen
+            
+            gotoScreen("firstMenu");
+        }
     }
 
     @Override
     public void onKeyEvent(KeyInputEvent evt) {
+        //Some key has been pressed
         
+        System.out.println("key!");
+        
+        if(nifty.getCurrentScreen().getScreenId().equals("start")) {
+            //Any key has been pressed!
+            //Goto following screen
+            
+            gotoScreen("firstMenu");
+        }
     }
 
     @Override

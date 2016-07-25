@@ -4,13 +4,13 @@
     <useControls filename="nifty-default-controls.xml"/>
     <useStyles filename="nifty-default-styles.xml"/>
     
-    <screen id="start" controller="mygame.StartState">
+    <screen id="start" controller="nl.ibe.hex.app.StartNiftyController">
         
         <layer id="background" backgroundColor="${CALL.getColor(start)}" />
         
         <layer id="foreground" childLayout="vertical">
             
-            <panel id="title" childLayout="vertical" width="100%" height="80%">
+            <panel id="title" childLayout="vertical" width="100%" height="70%">
                 
                 <panel id="splash" childLayout="center" width="15%" align="right" height="20%">
                     <control name="label" id="splashText" color="f44f" text="${CALL.getText(splash)}"/>
@@ -20,17 +20,15 @@
                 
             </panel>
             
-            <panel id="info" childLayout="vertical" width="100%" height="20%">
-                <control name="button" id="infoText" label="Press any key to continue">
-                    <interact onClick="gotoScreen(firstMenu)" />
-                </control>
+            <panel id="info" childLayout="center" width="100%" height="30%">
+                <control name="label" id="infoText" color="#a22f" text="Press any key to continue" />
             </panel>
             
         </layer>
         
     </screen>
     
-    <screen id="firstMenu" controller="mygame.StartState">
+    <screen id="firstMenu" controller="nl.ibe.hex.app.StartNiftyController">
         
         <layer id="background" backgroundColor="#00f8" />
         
@@ -52,50 +50,7 @@
         
     </screen>
     
-    <screen id="player selection" controller="mygame.StartState">
-        
-        <layer id="background" backgroundColor="#0f28" />
-        
-        <layer id="foreground" childLayout="horizontal">
-            
-            <control name="radioButtonGroup" id="PlayerButtons1" />
-            
-            <panel id="player1" childLayout="vertical">
-                
-                <panel id="info" childLayout="center" width="100%" height="25%">
-                    <control name="label" id="infoText" text="Choose your type!"/>
-                </panel>
-                
-                <panel id="radios" childLayout="vertical" width="100%" height="25%">
-                    
-                    <panel id="radio1" childLayout="center" align="center" width="70%" height="20%">
-                        
-                       <control name="label" id="CellText" text="Cell" align="left"/>
-                       <control name="radioButton" id="cell" group="PlayerButtons1" /> 
-                        
-                    </panel>
-                    
-                    <panel id="radio2" childLayout="center" align="center" width="70%" height="20%">
-                        
-                        <control name="label" id="BacText" text="Bacteria" align="left"/>
-                        <control name="radioButton" id="bac" group="PlayerButtons1" />
-                        
-                    </panel>
-                    
-                </panel>
-                
-                <panel id="naming" childLayout="center" width="20%" height="10%" align="center">
-                    <control name="textfield" id="namingTextField" text="your name here" width="75%" height="85%" />
-                </panel>
-                
-                <control name="button" id="lastButton" label="GO ->" align="center">
-                    <interact onClick="onNiftyClick(lastToGame)"/>
-                </control>
-                
-            </panel>
-            
-        </layer>
-        
-    </screen>
+    
+    
     
 </nifty>

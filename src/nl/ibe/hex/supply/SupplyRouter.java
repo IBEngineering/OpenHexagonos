@@ -8,6 +8,7 @@ package nl.ibe.hex.supply;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.ColorRGBA;
+import nl.ibe.hex.game.player.TeamManager;
 
 /**
  * Routes stuff and methods to the suppliers.
@@ -58,6 +59,8 @@ public class SupplyRouter {
         SupplyRouter.app = app;
         assetManager = app.getAssetManager();
         settings = sets;
+        
+        TeamManager.loadDefaults();
     }
     
     /**

@@ -9,18 +9,10 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.input.RawInputListener;
-import com.jme3.input.event.JoyAxisEvent;
-import com.jme3.input.event.JoyButtonEvent;
-import com.jme3.input.event.KeyInputEvent;
-import com.jme3.input.event.MouseButtonEvent;
-import com.jme3.input.event.MouseMotionEvent;
-import com.jme3.input.event.TouchEvent;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.ScreenController;
-import java.util.ArrayList;
 import java.util.HashMap;
 import nl.ibe.hex.supply.ModelSupplier;
 import nl.ibe.hex.view.update.UpdateListener;
@@ -45,7 +37,9 @@ public class StartState extends AbstractAppState implements UpdateListener {
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
         this.app = (SimpleApplication) app;
-        this.controllers = new HashMap<>();
+        
+        //Init some values
+        controllers = new HashMap<>();
         
         //Create the nifty
         fakeNifty = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
@@ -55,7 +49,11 @@ public class StartState extends AbstractAppState implements UpdateListener {
         createScreenControllers();
         
         String start = "Interface/StartNifty.xml";
+        String game = "Interface/GameNifty.xml";
+        String sets = "Interface/SettingsNifty.xml";
         nifty.fromXml(start , "start", controllers.get(start));
+        nifty.addXml(start);
+        nifty.addXml(sets);
         
         app.getGuiViewPort().addProcessor(fakeNifty);
         
@@ -90,7 +88,7 @@ public class StartState extends AbstractAppState implements UpdateListener {
         StartNiftyController snc = new StartNiftyController(app, nifty);
         controllers.put("Interface/StartNifty.xml", snc);
         
-        
+        app.getInputManager().addRawInputListener(snc);
         
     }
     

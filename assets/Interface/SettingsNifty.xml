@@ -3,9 +3,10 @@
     
     
     
-    <screen id="GScreen0" controller="mygame.StartScreen">
+    <screen id="settings" controller="mygame.StartScreen">
         
-        <layer id="GLayer0" childLayout="absolute">
+        <layer id="foreground" childLayout="absolute">
+            
         </layer>
         
     </screen>
