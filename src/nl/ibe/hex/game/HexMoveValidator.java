@@ -191,7 +191,7 @@ public class HexMoveValidator {
             dst.setOwner(move.getPlayer());
             
             //increment points by 1
-            move.getPlayer().incrementPoints();
+            //move.getPlayer().incrementPoints();
             
             HexChange change = new HexChange(src, dst, HexChange.Type.DUPLICATION);
             changedTiles.add(change);
@@ -226,8 +226,8 @@ public class HexMoveValidator {
                     neighTile.getOwner() != move.getPlayer() && 
                     !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
             {
-                neighTile.getOwner().decrementPoints();
-                move.getPlayer().incrementPoints();
+                //neighTile.getOwner().decrementPoints();
+                //move.getPlayer().incrementPoints();
                 
                 neighTile.setOwner(currPlayer);
                 

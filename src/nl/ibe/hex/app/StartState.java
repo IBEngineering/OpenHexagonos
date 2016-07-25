@@ -9,7 +9,9 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.input.KeyInput;
 import com.jme3.input.RawInputListener;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.event.JoyAxisEvent;
 import com.jme3.input.event.JoyButtonEvent;
 import com.jme3.input.event.KeyInputEvent;
@@ -45,6 +47,9 @@ public class StartState extends AbstractAppState implements UpdateListener {
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
         this.app = (SimpleApplication) app;
+        
+        //Init some values
+        controllers = new HashMap<>();
         
         //Create the nifty
         fakeNifty = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
@@ -87,9 +92,9 @@ public class StartState extends AbstractAppState implements UpdateListener {
 
     private void createScreenControllers() {
         StartNiftyController snc = new StartNiftyController(app, nifty);
-        controllers.put("Interface/StartNift.xml", snc);
+        controllers.put("Interface/StartNifty.xml", snc);
         
-        
+        app.getInputManager().addRawInputListener(snc);
         
     }
     
