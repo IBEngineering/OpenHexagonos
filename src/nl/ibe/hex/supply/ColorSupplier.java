@@ -8,6 +8,7 @@ package nl.ibe.hex.supply;
 import com.jme3.math.ColorRGBA;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.util.Random;
+import nl.ibe.hex.util.Relator;
 
 /**
  * Supplies colours.
@@ -60,6 +61,36 @@ public class ColorSupplier {
         ColorRGBA c =  SupplyRouter.getSettings().boardColor.clone();
         c.r = (float) Random.approximate(c.r, SupplyRouter.getSettings().redApproximation);
         return c;
+    }
+    
+    public static String niftyFormat(ColorRGBA c) {
+        float[] rgba = new float[4];
+        
+        rgba[0] = c.r;
+        rgba[1] = c.g;
+        rgba[2] = c.b;
+        rgba[3] = c.a;
+        
+        String s = "";
+        
+        for (int i = 0; i < rgba.length; i++) {
+            
+            char character = Relator.toHexadecimal(rgba[i], 1);
+            s = s + character;
+            
+        }
+        
+        return "#" + s;
+    }
+    
+    public static String getNiftyBackground(String id) {
+        
+        if(id.equals("start")) {
+            return niftyFormat(ColorRGBA.Blue);
+        } else {
+            return "#123f";
+        }
+        
     }
     
 }

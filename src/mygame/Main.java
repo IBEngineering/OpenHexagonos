@@ -8,11 +8,8 @@ import com.jme3.asset.AssetManager;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.system.AppSettings;
-import nl.ibe.hex.game.HexGame;
-import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.supply.SupplyRouter;
-import nl.ibe.hex.view.View;
 import nl.ibe.hex.view.update.UpdateProvider;
 
 /**
@@ -35,6 +32,8 @@ public class Main extends SimpleApplication {
         
         app.setDisplayStatView(false);
         app.setDisplayFps(false);
+        
+        System.out.println("+++++++++++++" + (int) 'a');
         
     }
     private Clicker click;

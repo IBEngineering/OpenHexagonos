@@ -6,7 +6,7 @@
     
     <screen id="start" controller="mygame.StartState">
         
-        <layer id="background" backgroundColor="#00f8" />
+        <layer id="background" backgroundColor="${CALL.getColor(start)}" />
         
         <layer id="foreground" childLayout="vertical">
             

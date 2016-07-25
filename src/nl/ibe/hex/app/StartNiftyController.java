@@ -24,6 +24,7 @@ import mygame.Main;
 import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.HexRandomAiPlayer;
+import nl.ibe.hex.supply.ColorSupplier;
 import nl.ibe.hex.util.Random;
 
 /**
@@ -58,6 +59,10 @@ public class StartNiftyController implements ScreenController, RawInputListener 
         
     }
     
+    public void gotoScreen(String screen) {
+        nifty.gotoScreen(screen);
+    }
+    
     public String getText(String type) {
         
         if(type.equals("splash")) {
@@ -74,13 +79,15 @@ public class StartNiftyController implements ScreenController, RawInputListener 
         
     }
     
-    public void gotoScreen(String screen) {
-        nifty.gotoScreen(screen);
+    public String getColor(String id) {
+        return ColorSupplier.getNiftyBackground(id);
     }
     
     public String getSize(String id) {
         return "20%";
     }
+    
+    
     
     public void onNiftyClick(String s) {
         

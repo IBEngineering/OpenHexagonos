@@ -45,6 +45,7 @@ public class StartState extends AbstractAppState implements UpdateListener {
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
         this.app = (SimpleApplication) app;
+        this.controllers = new HashMap<>();
         
         //Create the nifty
         fakeNifty = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
@@ -87,7 +88,7 @@ public class StartState extends AbstractAppState implements UpdateListener {
 
     private void createScreenControllers() {
         StartNiftyController snc = new StartNiftyController(app, nifty);
-        controllers.put("Interface/StartNift.xml", snc);
+        controllers.put("Interface/StartNifty.xml", snc);
         
         
         
