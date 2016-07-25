@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
+    
+    <useControls filename="nifty-default-controls.xml"/>
+    <useStyles filename="nifty-default-styles.xml"/>
+    
+    <screen id="player selection" controller="nl.ibe.hex.app.StartNiftyController">
+        
+        <layer id="background" backgroundColor="#0f28" />
+        
+        <layer id="foreground" childLayout="center">
+            
+            <control name="radioButtonGroup" id="teamRadio" />
+            
+            <panel id="radioBig" childLayout="center" width="80%" height="80%" valign="center" align="center">
+                
+                <panel id="radioLeft" childLayout="vertical" width="50%" height="100%" align="left" valign="center">
+                    
+                </panel>
+                
+                <panel id="radioRight" childLayout="vertical" width="50%" height="100%" align="right" valign="center">
+                    
+                </panel>
+                
+                <panel id="radioCenter" childLayout="vertical" width="50%" height="100%"  align="center" valign="center" backgroundColor="#000a">
+                    
+                </panel>
+                
+            </panel>
+            
+        </layer>
+        
+    </screen>
+    
+</nifty>
