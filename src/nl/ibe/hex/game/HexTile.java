@@ -64,11 +64,9 @@ public class HexTile {
         this.owner = owner;
     }
     
-    @Override
-    public HexTile clone() throws CloneNotSupportedException
+    public HexTile getDuplicate()
     {
-        super.clone();
-        HexTile t = new HexTile(coordinate.clone());
+        HexTile t = new HexTile(coordinate.getDuplicate());
         t.setOwner(owner);
         return t;
     }

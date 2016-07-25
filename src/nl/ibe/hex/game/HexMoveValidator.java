@@ -118,10 +118,27 @@ public class HexMoveValidator {
     }
     
     
+    public static HexMove getBestMove(ArrayList<HexMove> moves, HexBoard board)
+    {
+        int bestMoveVal = -1;
+        HexMove bestMove = null;
+        for(HexMove m : moves)
+        {
+            Integer moveVal = new Integer(getMoveValue(m, board));
+            if (moveVal > bestMoveVal)
+            {
+                bestMoveVal = moveVal;
+                bestMove = m;
+            }
+        }
+        
+        return bestMove;
+    }
+    
     public static int getMoveValue(HexMove move, HexBoard board)
     {
         ConcurrentHashMap<HexCoordinate, HexTile> bord = board.getBoard();
-        
+        if (move == null) { return Integer.MIN_VALUE; }
         ArrayList<HexCoordinate> neighs = move.getTo().ring(1);
             
         int points = 0;
@@ -151,14 +168,19 @@ public class HexMoveValidator {
         }
 
         return points;
-        
-        
+
     }
+    
+    
     
     public static void executeMove(HexMove move, HexBoard board, HexPlayer currPlayer)
     {
         ConcurrentHashMap<HexCoordinate,HexTile> bord = board.getBoard();
         ArrayList<HexChange> changedTiles = new ArrayList<>();
+        
+        if(move == null) { return; }
+        if(move.getFrom() == null) { return; }
+        if(move.getTo() == null) { return; }
         
         //Determine if we do a move or clone
         if (move.getFrom().distance(move.getTo()) < 2)

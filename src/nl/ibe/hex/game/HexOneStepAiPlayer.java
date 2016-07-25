@@ -30,7 +30,7 @@ public class HexOneStepAiPlayer extends HexPlayer implements IHexGameAiPlayer {
         
         for (HexMove m : allMoves)
         {
-            Integer moveVal = HexMoveValidator.getMoveValue(m, b);
+            Integer moveVal = new Integer(HexMoveValidator.getMoveValue(m, b));
 
             ArrayList moves = moveMap.get(moveVal);
             if (moves == null)
