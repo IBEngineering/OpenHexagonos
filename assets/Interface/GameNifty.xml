@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
     
-    <useControls filename="nifty-default-controls.xml"/>
-    <useStyles filename="nifty-default-styles.xml"/>
-    
     <screen id="player selection" controller="nl.ibe.hex.app.StartNiftyController">
         
         <layer id="background" backgroundColor="#0f28" />
         
-        <layer id="foreground" childLayout="center">
+        <layer id="foreground" childLayout="vertical">
             
-            <control name="radioButtonGroup" id="teamRadio" />
+            <control name="radioButtonGroup" id="TeamRadio" />
             
-            <panel id="radioBig" childLayout="center" width="80%" height="80%" valign="center" align="center">
+            <panel id="something1" childLayout="center" width="100%" height="20%" valign="top" />
+            
+            <panel id="radioBig" childLayout="center" width="80%" height="60%" valign="center" align="center">
                 
                 <panel id="radioLeft" childLayout="vertical" width="50%" height="100%" align="left" valign="center">
                     
@@ -26,6 +25,12 @@
                     
                 </panel>
                 
+            </panel>
+            
+            <panel id="goButton" childLayout="center" width="100%" height="20%">
+                <control name="button" id="goButton" label="GO ->" width="80%" height="80%" valign="bottom" align="center">
+                    <interact onClick="onNiftyClick(lastToGame)" />
+                </control>
             </panel>
             
         </layer>

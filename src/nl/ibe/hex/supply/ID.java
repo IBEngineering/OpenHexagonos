@@ -13,6 +13,8 @@ public class ID {
     
     private long id;
     
+    private final long number;
+    
     private String extraSpecification;
     
     /**
@@ -25,6 +27,8 @@ public class ID {
     public ID(String s, long l) {
         
         id = l;
+        
+        number = l;
         
         char[] chars = s.toCharArray();
         
@@ -45,6 +49,8 @@ public class ID {
     public ID(String s, long l, String extra) {
         id = l;
         
+        number = l;
+        
         char[] chars = s.toCharArray();
         
         for (char c : chars) {
@@ -62,4 +68,12 @@ public class ID {
         return extraSpecification;
     }
     
+    public boolean equals(long id, String specification) {
+        
+        return number == id && specification.equals(extraSpecification);
+    }
+    
+    public boolean equals(long id) {
+        return id == number;
+    }
 }

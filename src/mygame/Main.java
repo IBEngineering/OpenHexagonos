@@ -8,8 +8,13 @@ import com.jme3.asset.AssetManager;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.system.AppSettings;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.supply.SupplyRouter;
+import nl.ibe.hex.util.Encryptor;
+import nl.ibe.hex.util.TextReader;
 import nl.ibe.hex.view.update.UpdateProvider;
 
 /**
@@ -33,7 +38,13 @@ public class Main extends SimpleApplication {
         app.setDisplayStatView(false);
         app.setDisplayFps(false);
         
-        System.out.println("+++++++++++++" + (int) 'a');
+        try {
+            String what = (TextReader.readFile("assets/Interface/Text/txt.txt")).get(0);
+            String answer = Encryptor.decryptString("settings", what);
+            System.out.println(answer);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     private Clicker click;

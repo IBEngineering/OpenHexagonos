@@ -22,8 +22,12 @@ import de.lessvoid.nifty.screen.ScreenController;
 import mygame.Main;
 import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.game.HexRandomAiPlayer;
 import nl.ibe.hex.supply.ColorSupplier;
 import nl.ibe.hex.game.HexTwoStepAiPLayer;
+import nl.ibe.hex.game.player.Team;
+import nl.ibe.hex.game.player.TeamManager;
+import nl.ibe.hex.supply.ID;
 import nl.ibe.hex.supply.NiftySupplier;
 import nl.ibe.hex.util.Random;
 
@@ -52,7 +56,11 @@ public class StartNiftyController implements ScreenController, RawInputListener 
     @Override
     public void onStartScreen() {
         
+        if(nifty.getCurrentScreen().getScreenId().equals("player selection")) {
+            NiftySupplier.addTeams(nifty, "radioBig");
         }
+        
+    }
 
     @Override
     public void onEndScreen() {
@@ -93,22 +101,28 @@ public class StartNiftyController implements ScreenController, RawInputListener 
         
         if(s.equals("lastToGame")) {
             
-            HexPlayer.Type type = null;
-            HexPlayer.Type oppType = null;
+            Team team = null;
+            Team oppTeam = null;
             
-            if(currentSelectedRadio.equals("cell")) {
-                type = HexPlayer.Type.CELL;
-                oppType = HexPlayer.Type.BACTERIA;
-            } else if(currentSelectedRadio.equals("bac")) {
-                type = HexPlayer.Type.BACTERIA;
-                oppType = HexPlayer.Type.CELL;
+            if(currentSelectedRadio.equals("radio0")) {
+                team = TeamManager.get(0);
+                oppTeam = TeamManager.get(1);
+            } else if(currentSelectedRadio.equals("radio1")) {
+                team = TeamManager.get(1);
+                oppTeam = TeamManager.get(2);
+            } else if(currentSelectedRadio.equals("radio2")) {
+                team = TeamManager.get(2);
+                oppTeam = TeamManager.get(0);
+            } else {
+                team = TeamManager.get(2);
+                oppTeam = TeamManager.get(1);
             }
             
             TextField textField = nifty.getCurrentScreen().findNiftyControl("namingTextField", TextField.class);
-            String name = textField.getDisplayedText();
+            String name = "ita";
             
-            HexPlayer human = new HexRandomAiPlayer(name, type);
-            HexPlayer ai = new HexOneStepAiPlayer("smart ai", oppType);
+            HexPlayer human = new HexOneStepAiPlayer(name, team);
+            HexPlayer ai = new HexTwoStepAiPLayer("borgert", oppTeam);
             
             Main m = (Main) app;
             m.startGame(human, ai);
@@ -116,7 +130,7 @@ public class StartNiftyController implements ScreenController, RawInputListener 
         
     }
     
-    @NiftyEventSubscriber(id="PlayerButtons1")
+    @NiftyEventSubscriber(id="TeamRadio")
     public void onRadioGroup1Changed(final String id, final RadioButtonGroupStateChangedEvent event) {
         System.out.println("RadioButton [" + event.getSelectedId() + "] is now selected");
         
@@ -152,7 +166,7 @@ public class StartNiftyController implements ScreenController, RawInputListener 
     public void onMouseButtonEvent(MouseButtonEvent evt) {
         //Some key has been pressed
         
-        System.out.println("key!");
+        System.out.println("mouse!");
         
         if(nifty.getCurrentScreen().getScreenId().equals("start")) {
             //Any key has been pressed!

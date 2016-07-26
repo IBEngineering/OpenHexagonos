@@ -7,6 +7,7 @@ package nl.ibe.hex.supply;
 
 import com.jme3.math.ColorRGBA;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.util.Random;
 import nl.ibe.hex.util.Relator;
 
@@ -27,24 +28,24 @@ public class ColorSupplier {
      * colours using {@link Random}.
      * 
      * @see Random
-     * @param type  The player type.
+     * @param team  The player type.
      * @return      The desired colour.
      */
-    public static ColorRGBA getPlayerColor(HexPlayer.Type type) {
-        switch(type) {
-            case BACTERIA: {
-                float green = Random.rdm(0.35f, 1f);
-                return new ColorRGBA(0.2f, green, 0.2f, 1);
-            }
-            case CELL: {
-                float blue = Random.rdm(0.35f, 1f);
-                return new ColorRGBA(0.2f, 0.2f, blue, 1);
-            }
-            case BLOCKER: {
-                //Pure red
-                return ColorRGBA.Red;
-            }
-        }   //End of switch
+    public static ColorRGBA getPlayerColor(Team team) {
+        
+        if(team.getColourID().equals(0)) {
+            float blue = (float) Random.approximate(0.8f, 0.2f);
+            
+            return new ColorRGBA(0.2f, 0.2f, blue, 1.0f);
+        } else if(team.getColourID().equals(1)) {
+            float green = (float) Random.approximate(0.8f, 0.2f);
+            
+            return new ColorRGBA(0.2f, green, 0.2f, 1.0f);
+        } else if(team.getColourID().equals(2)) {
+            float red = (float) Random.approximate(0.8f, 0.2f);
+            
+            return new ColorRGBA(red, 0.2f, 0.2f, 0.8f);
+        }   //End of ifs
         
         //If, somehow, the player wasn't any of those, give it a slight orange-alpha
         return new ColorRGBA(0.6f, 0.2f, 0, 0.4f);

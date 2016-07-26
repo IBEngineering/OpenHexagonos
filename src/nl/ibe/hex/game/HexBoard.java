@@ -20,13 +20,18 @@ public class HexBoard {
     protected ConcurrentHashMap<HexCoordinate, HexTile> board;
     private final int radius;
     
-    public HexBoard(int radius)
+    private HexCoordinate[] blockedFields;
+    
+    public HexBoard(int radius, HexCoordinate[] blockedFields)
     {
+        this.blockedFields = blockedFields;
         board = new ConcurrentHashMap<>();
         this.radius = radius;
         
         generateField();
         populateNeigbors();
+        
+        
     }
     
     /**
@@ -45,15 +50,19 @@ public class HexBoard {
                 
                 
                 if (x+y <= radius && x+y >= -1*radius) {
-
+                    
                     //Loop the z
                     int z = -1*x -y;
-
-                    HexCoordinate coord = new HexCoordinate(x, y, z);
                     
-                    //Place it
-                    HexTile h = new HexTile(coord);
-                    board.put(coord, h);
+                    //If it isnt blocked
+                    if(!isBlocked(x, y, z)) {
+                        HexCoordinate coord = new HexCoordinate(x, y, z);
+                        
+                        //Place it
+                        HexTile h = new HexTile(coord);
+                        board.put(coord, h);
+                    }
+                    
                 }
                 y++;
             }
@@ -133,7 +142,7 @@ public class HexBoard {
 
     public HexBoard getDuplicate()
     {
-        HexBoard b = new HexBoard(radius);
+        HexBoard b = new HexBoard(radius, blockedFields);
         b.board = null;
         
         ConcurrentHashMap<HexCoordinate, HexTile> nBoard = new ConcurrentHashMap();
@@ -148,4 +157,17 @@ public class HexBoard {
         return b;
     }
     
+    protected boolean isBlocked(int x, int y, int z) {
+        
+        for (HexCoordinate b : blockedFields) {
+            
+            if(b.x == x && b.y == y && b.z == z) {
+                return true;
+            }
+            
+        }
+        
+        //else
+        return false;
+    }
 }

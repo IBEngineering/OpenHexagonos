@@ -8,6 +8,7 @@ package nl.ibe.hex.supply;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.game.player.Team;
 import static nl.ibe.hex.supply.SupplyRouter.*;
 
 /**
@@ -30,11 +31,11 @@ public class MaterialSupplier {
     /**
      * A shortcut for getting the player's coloured material.
      * 
-     * @param p The player type.
+     * @param t The player type.
      * @return  The player's coloured material.
      */
-    public static Material getPlayerMaterial(HexPlayer.Type p) {
-        return getColoredMaterial(ColorSupplier.getPlayerColor(p));
+    public static Material getPlayerMaterial(Team t) {
+        return getColoredMaterial(ColorSupplier.getPlayerColor(t));
     }
     
     /**

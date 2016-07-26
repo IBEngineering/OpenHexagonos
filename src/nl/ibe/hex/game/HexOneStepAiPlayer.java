@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import nl.ibe.hex.game.player.Team;
 
 /**
  *
@@ -16,8 +17,8 @@ import java.util.List;
  */
 public class HexOneStepAiPlayer extends HexPlayer implements IHexGameAiPlayer {
     
-    public HexOneStepAiPlayer(String name, Type type) {
-        super(name, type);
+    public HexOneStepAiPlayer(String name, Team team) {
+        super(name, team);
         this.human = false;
     }
     

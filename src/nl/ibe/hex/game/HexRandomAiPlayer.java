@@ -6,6 +6,7 @@
 package nl.ibe.hex.game;
 
 import java.util.ArrayList;
+import nl.ibe.hex.game.player.Team;
 
 /**
  *
@@ -13,8 +14,8 @@ import java.util.ArrayList;
  */
 public class HexRandomAiPlayer extends HexPlayer implements IHexGameAiPlayer {
     
-    public HexRandomAiPlayer(String name, Type type) {
-        super(name, type);
+    public HexRandomAiPlayer(String name, Team team) {
+        super(name, team);
         this.human = false;
     }
     

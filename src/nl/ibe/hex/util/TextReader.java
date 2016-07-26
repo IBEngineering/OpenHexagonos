@@ -6,6 +6,7 @@
 package nl.ibe.hex.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -39,5 +40,14 @@ public class TextReader {
         }
         
         return list;
+    }
+    
+    public static void writeFileLine(String pathToFile, String line) throws IOException {
+        
+        Path path = Paths.get(pathToFile);
+        try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)) {
+            writer.write(line);
+            writer.newLine();
+        }
     }
 }

@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.*;
 import nl.ibe.hex.app.Clicker;
 import nl.ibe.hex.game.*;
+import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.supply.*;
 
 /**
@@ -85,17 +86,17 @@ public class View implements IHexGameListener{
             app.getInputManager().addMapping(Clicker.mapping, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
             app.getInputManager().addListener(click, Clicker.mapping);
             
-            ModelSupplier.announcement(app.getRootNode(), game.getCurrentPlayer().getType());
+            ModelSupplier.announcement(app.getRootNode(), game.getCurrentPlayer().getTeam());
         }
         
         //Load the starters.
         ArrayList<HexCoordinate> p1POS = game.getBoard().getPlayerPositions(p1);
         for (HexCoordinate hexCoordinate : p1POS) {
-            grid.getGrid().get(hexCoordinate).setOwner(p1.getType());
+            grid.getGrid().get(hexCoordinate).setOwner(p1.getTeam());
         }
         ArrayList<HexCoordinate> p2POS = game.getBoard().getPlayerPositions(p2);
         for (HexCoordinate hexCoordinate : p2POS) {
-            grid.getGrid().get(hexCoordinate).setOwner(p2.getType());
+            grid.getGrid().get(hexCoordinate).setOwner(p2.getTeam());
         }
     }
     
@@ -116,7 +117,7 @@ public class View implements IHexGameListener{
                     //The second blob should move to the correct position.
 
                     HexCoordinate c = change.getEnd().getCoordinate();
-                    grid.getGrid().get(c).setOwner(change.getStart().getOwner().getType());
+                    grid.getGrid().get(c).setOwner(change.getStart().getOwner().getTeam());
                     break;
                 }
                 case JUMP: {
@@ -124,7 +125,7 @@ public class View implements IHexGameListener{
                     //To the end position.
                     
                     
-                    HexPlayer.Type jumper = change.getEnd().getOwner().getType();
+                    Team jumper = change.getEnd().getOwner().getTeam();
                     
                     HexCoordinate s = change.getStart().getCoordinate();
                     HexCoordinate e = change.getEnd().getCoordinate();
@@ -138,11 +139,11 @@ public class View implements IHexGameListener{
                 case CONQUEST: {
                     //Some blob has been conquered by another blob.
                     
-                    HexPlayer.Type conqueror = change.getStart().getOwner().getType();
+                    Team conqueror = change.getStart().getOwner().getTeam();
                     System.out.println(conqueror);
                     
                     HexSpatial s = grid.getGrid().get(change.getEnd().getCoordinate());
-                    System.out.println("spatial" + s.getOwnerType());
+                    System.out.println("spatial" + s.getOwnerTeam());
                     
                     s.setOwner(conqueror);
                     
@@ -191,7 +192,7 @@ public class View implements IHexGameListener{
      */
     public void onClick(HexSpatial hex) {
         
-        ModelSupplier.changePlayer(app.getRootNode(), game.getCurrentPlayer().getType());
+        ModelSupplier.changePlayer(app.getRootNode(), game.getCurrentPlayer().getTeam());
         
         //Was something seleccted?
         if(selected) {

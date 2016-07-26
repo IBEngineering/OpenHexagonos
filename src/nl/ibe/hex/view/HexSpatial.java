@@ -10,6 +10,7 @@ import nl.ibe.hex.game.HexCoordinate;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.supply.*;
 
 /**
@@ -33,7 +34,7 @@ public class HexSpatial extends Geometry {
     
     //Owner etc.
     private Node ownerNode;
-    private HexPlayer.Type ownerType;
+    private Team ownerTeam;
     
     /**
      * Standard constructor.
@@ -77,18 +78,18 @@ public class HexSpatial extends Geometry {
      * has this tile in possesion.
      * 
      * @see ModelSupplier
-     * @param type  The (type of) player.
+     * @param team  The (type of) player.
      */
-    public void setOwner(HexPlayer.Type type) {
+    public void setOwner(Team team) {
         //Set all the values
-        ownerType = type;
+        ownerTeam = team;
         
         //Empty the node
         ownerNode.detachAllChildren();
         
         //Attach the stuff
-        if(type != null) {
-            ownerNode.attachChild(ModelSupplier.getPlayerShape(type));
+        if(team != null) {
+            ownerNode.attachChild(ModelSupplier.getPlayerShape(team));
             //ownerNode.attachChild(ParticleSupplier.getFire(ColorSupplier.getPlayerColor(type), ColorRGBA.White));
         }
     }
@@ -108,8 +109,8 @@ public class HexSpatial extends Geometry {
         return coord;
     }
 
-    public HexPlayer.Type getOwnerType() {
-        return ownerType;
+    public Team getOwnerTeam() {
+        return ownerTeam;
     }
     
     public Node getOwnerAttach() {

@@ -6,6 +6,7 @@
 package nl.ibe.hex.game.player;
 
 import java.util.ArrayList;
+import nl.ibe.hex.supply.ID;
 
 /**
  *
@@ -19,6 +20,8 @@ public class TeamManager {
     public static void loadDefaults() {
         Team cell = new Team("Cell", 0);
         Team bacteria = new Team("Bacteria", 1);
+        
+        Team virus = new Team("Virus", 2);
     }
 
     public static void add(Team team) {
@@ -26,6 +29,17 @@ public class TeamManager {
         if(team.isVisible()) {
             visibleTeams.add(team);
         }
+    }
+    
+    public static Team get(long id) {
+        for (Team t : allTeams) {
+            if(t.getNumericalID() == id) {
+                return t;
+            }
+        }
+        
+        //somehow not found
+        return null;
     }
     
     public static void sync(Team team) {

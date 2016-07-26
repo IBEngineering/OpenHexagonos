@@ -13,7 +13,9 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
+import com.jme3.scene.shape.Torus;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.util.Random;
 import nl.ibe.hex.view.HexagonMesh;
 import nl.ibe.hex.supply.SupplyRouter.*;
@@ -38,7 +40,7 @@ public class ModelSupplier {
      * @return  The spatial representing the player.
      */
     public static Spatial getPlayerModel(HexPlayer p) {
-        return getPlayerShape(p.getType());
+        return getPlayerShape(p.getTeam());
     }
     
     public static Geometry getRandomHexagon(float min_radius) {
@@ -58,39 +60,38 @@ public class ModelSupplier {
      * The geometry and size are specified in the settings.
      * NOT YET.
      * 
-     * @param type  The player type.
+     * @param team  The player type.
      * @return      The geometry, representing the player.
      */
-    public static Geometry getPlayerShape(HexPlayer.Type type) {
+    public static Geometry getPlayerShape(Team team) {
         Mesh mesh = new Sphere(6, 20, 1.48f);  //default thing
         
-        switch(type) {
-            case BACTERIA: {
-                mesh = new Sphere(6, 6, 0.35f);
-                break;
-            }
-            case CELL: {
-                mesh = new Box(0.35f, 0.35f, 0.35f);
-                break;
-            }
+        if(team.getModelID().equals(0, "model")) {
+            //Cell
+            mesh = new Box(0.35f, 0.35f, 0.35f);
+        } else if(team.getModelID().equals(1, "model")) {
+            //Bacteria
+            mesh = new Sphere(6, 6, 0.35f);
+        } else if(team.getModelID().equals(2, "model")) {
+            mesh = new Torus(8, 8, 0.05f, 0.35f);
         }
         
-        Geometry spatial = new Geometry("A " + type + " generated in ModelSupplier", mesh);
-        spatial.setMaterial(MaterialSupplier.getPlayerMaterial(type));
+        Geometry spatial = new Geometry("A " + team.getName() + " generated in ModelSupplier", mesh);
+        spatial.setMaterial(MaterialSupplier.getPlayerMaterial(team));
         
         return spatial;
     }
     
-    public static void announcement(Node node, HexPlayer.Type type) {
-        s = getPlayerShape(type);
+    public static void announcement(Node node, Team team) {
+        s = getPlayerShape(team);
         s.setLocalTranslation(0, -10, 0);
         s.scale(5);
         node.attachChild(s);
     }
     
-    public static void changePlayer(Node node, HexPlayer.Type type) {
+    public static void changePlayer(Node node, Team team) {
         node.detachChild(s);
-        s = getPlayerShape(type);
+        s = getPlayerShape(team);
         s.setLocalTranslation(0, -10, 0);
         s.scale(5);
         node.attachChild(s);

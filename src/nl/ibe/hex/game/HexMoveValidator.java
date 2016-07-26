@@ -156,12 +156,9 @@ public class HexMoveValidator {
             {
                 if (t.getOwner() != null)
                 {
-                    if (t.getOwner().getType() != HexPlayer.Type.BLOCKER)
+                    if (t.getOwner() != move.getPlayer())
                     {
-                        if (t.getOwner() != move.getPlayer())
-                        {
-                            points = points + 1;
-                        }
+                        points = points + 1;
                     }
                 }
             }
@@ -220,11 +217,9 @@ public class HexMoveValidator {
             // If an existing tile
             // and If not an empty tile
             // and if not our tile
-            // and if not a blocker
             if (neighTile != null &&
                     neighTile.getOwner() != null && 
-                    neighTile.getOwner() != move.getPlayer() && 
-                    !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
+                    neighTile.getOwner() != move.getPlayer() )
             {
                 //neighTile.getOwner().decrementPoints();
                 //move.getPlayer().incrementPoints();

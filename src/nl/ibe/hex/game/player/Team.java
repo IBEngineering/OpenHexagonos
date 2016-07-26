@@ -25,6 +25,8 @@ public class Team {
     protected boolean visible;
     
     public Team(String name, long id) {
+        this.name = name;
+        
         numericalID = id;
         ID = new ID(name, id);
         
@@ -74,4 +76,10 @@ public class Team {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
+    public long getNumericalID() {
+        return numericalID;
+    }
+    
+    
 }

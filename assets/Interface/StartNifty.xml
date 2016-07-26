@@ -36,6 +36,9 @@
             
             <panel id="start button panel" childLayout="center" width="100%" height="50%">
                 <control id="startButton" name="button" label="START" width="60%" height="30%">
+                    
+                    
+                    
                     <interact onClick="gotoScreen(player selection)" />
                 </control>
             </panel>

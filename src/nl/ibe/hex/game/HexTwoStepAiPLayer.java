@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nl.ibe.hex.game.player.Team;
 
 /**
  *
@@ -21,8 +22,8 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
     private HexStateTreeNode root;
     private static int depth = 2;
     
-    public HexTwoStepAiPLayer(String name, Type type) {
-        super(name, type);
+    public HexTwoStepAiPLayer(String name, Team team) {
+        super(name, team);
         this.human = false;
     }   
     
@@ -43,7 +44,7 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
             }
         }
 
-        System.out.println(root.toString());
+        //System.out.println(root.toString());
         
         int bestMoveVal = Integer.MIN_VALUE;
         HexMove bestMove = null;
@@ -51,14 +52,14 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
         for(HexStateTreeNode node : nodes)
         {
             int val = node.accumulatePoints(node);
-            System.out.println("int val " + val);
+            //System.out.println("int val " + val);
             if (val > bestMoveVal)
             {
                 bestMoveVal = val;
                 bestMove = node.getMove();
             }
         }
-        System.out.println("bestMove: " + bestMove);
+       // System.out.println("bestMove: " + bestMove);
         return bestMove;
     }
 }

@@ -7,8 +7,8 @@ package nl.ibe.hex.supply;
 
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.builder.PanelBuilder;
-import de.lessvoid.nifty.controls.dynamic.PanelCreator;
 import de.lessvoid.nifty.controls.label.builder.LabelBuilder;
+import de.lessvoid.nifty.controls.radiobutton.builder.RadioButtonBuilder;
 import de.lessvoid.nifty.elements.Element;
 import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.game.player.TeamManager;
@@ -22,7 +22,7 @@ public class NiftySupplier {
     public static void addTeams(Nifty nifty, String elementId) {
         
         //There should be a radio button group called:
-        String radioGroup = "teamRadio";
+        final String radioGroup = "TeamRadio";
         
         //What panel should be used?
         //If there are less than 5 teams, use the center
@@ -36,34 +36,45 @@ public class NiftySupplier {
             //Build!
             Team[] allTeams = TeamManager.getVisibleTeams().toArray(new Team[count]);
             
-            for (Team team : allTeams) {
+            
+            
+            for (final Team team : allTeams) {
                 
-//                PanelBuilder panelBuild = new PanelBuilder("radio" + team.getID() + "Panel") {{
-//                    
-//                    width("100%");
-//                    height((int)(100/count) + "%");
-//                    childLayoutHorizontal();
-//                    backgroundColor("#000a");
-//                    
-//                    
-//                    
-//                    control(new LabelBuilder("radio" + team.getID() + "Label", team.getName()) {{
-//                        
-//                        valignCenter();
-//                        width("60%");
-//                        
-//                    }});
-//                    
-//                    control(new LabelBuilder("radio" + team.getID(), team.getName()) {{
-//                        
-//                        valignCenter();
-//                        width("40%");
-//                        
-//                    }});
-//                }};
+                final String name = team.getName();
+                final String id = team.getNumericalID() + "";
                 
-                (new LabelBuilder("id", "text")).build(nifty, nifty.getCurrentScreen(), nifty.getCurrentScreen().findElementById("radioCenter"));
+                PanelBuilder panelBuild = new PanelBuilder("radio" + id + "Panel") {{
+                    
+                    width("100%");
+                    height((int)(100/count) + "%");
+                    childLayoutHorizontal();
+                    backgroundColor("#000a");
+                    alignCenter();
+                    
+                    
+                    
+                    control(new LabelBuilder("radio" + id + "Label", name) {{
+                        
+                        valignCenter();
+                        width("60%");
+                        
+                    }});
+                    
+                    control(new RadioButtonBuilder("radio" + id) {{
+                        
+                        valignCenter();
+                        width("40%");
+                        group(radioGroup);
+                        
+                    }});
+                }};
                 
+                panelBuild.build(nifty, nifty.getCurrentScreen(), panel);
+                
+//                LabelBuilder lb = new LabelBuilder("label" +i , "label");
+//                lb.build(nifty, nifty.getCurrentScreen(), panel);
+                
+                //i++;
             }
             
             nifty.getCurrentScreen().layoutLayers();

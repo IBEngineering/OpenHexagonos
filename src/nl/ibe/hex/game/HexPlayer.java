@@ -6,6 +6,7 @@
 package nl.ibe.hex.game;
 
 import java.util.Objects;
+import nl.ibe.hex.game.player.Team;
 
 /**
  *
@@ -15,8 +16,8 @@ public class HexPlayer {
     
     private String name;
     boolean human = true;
-    private Type type;
     private int points = 0;
+    private Team team;
     
     public static enum Type {
         
@@ -26,9 +27,9 @@ public class HexPlayer {
         
     }
 
-    public HexPlayer(String name, Type type) {
+    public HexPlayer(String name, Team team) {
         this.name = name;
-        this.type = type;
+        this.team = team;
     }
 
     public String getName() {
@@ -37,10 +38,6 @@ public class HexPlayer {
 
     public boolean isHuman() {
         return human;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     public int getPoints() {
@@ -64,7 +61,7 @@ public class HexPlayer {
         int hash = 5;
         hash = 79 * hash + Objects.hashCode(this.name);
         hash = 79 * hash + (this.human ? 1 : 0);
-        hash = 79 * hash + Objects.hashCode(this.type);
+        hash = 79 * hash + Objects.hashCode(this.team);
         return hash;
     }
 
@@ -86,7 +83,7 @@ public class HexPlayer {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (this.type != other.type) {
+        if (this.team != other.team) {
             return false;
         }
         return true;
@@ -94,9 +91,11 @@ public class HexPlayer {
 
     @Override
     public String toString() {
-        return "HexPlayer{" + "name=" + name + ", human=" + human + ", type=" + type + ", points=" + points + '}';
+        return "HexPlayer{" + "name=" + name + ", human=" + human + ", team=" + team + ", points=" + points + '}';
     }
-    
-    
+
+    public Team getTeam() {
+        return team;
+    }
     
 }

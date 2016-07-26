@@ -28,10 +28,8 @@ public class HexGame implements IHexGame {
         players[1] = p2;
         currPlayer = p1;
         otherPlayer = p2;
-        this.board = new HexBoard(4);
+        this.board = new HexBoard(4, getBlockFields());
         this.setStartPositions();
-        
-        this.setBlockFields();
     }
 
     private void setStartPositions()
@@ -61,18 +59,14 @@ public class HexGame implements IHexGame {
 
     }
     
-    private void setBlockFields()
+    private HexCoordinate[] getBlockFields()
     {
-        HexPlayer blocker = new HexPlayer("blocker", HexPlayer.Type.BLOCKER);
-
-
+        
         HexCoordinate b1 = new HexCoordinate(1, 0, -1);
         HexCoordinate b2 = new HexCoordinate(-1, 1, 0);
         HexCoordinate b3 = new HexCoordinate(0, -1, 1);
         
-        board.getBoard().get(b1).setOwner(blocker);
-        board.getBoard().get(b2).setOwner(blocker);
-        board.getBoard().get(b3).setOwner(blocker);
+        return new HexCoordinate[] {b1, b2, b3};
     }
     
     @Override
@@ -248,11 +242,9 @@ public class HexGame implements IHexGame {
             // If an existing tile
             // and If not an empty tile
             // and if not our tile
-            // and if not a blocker
             if (neighTile != null &&
                     neighTile.getOwner() != null && 
-                    neighTile.getOwner() != move.getPlayer() && 
-                    !neighTile.getOwner().getType().equals(HexPlayer.Type.BLOCKER))
+                    neighTile.getOwner() != move.getPlayer() )
             {
                 neighTile.getOwner().decrementPoints();
                 move.getPlayer().incrementPoints();

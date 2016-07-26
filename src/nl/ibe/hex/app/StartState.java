@@ -51,9 +51,16 @@ public class StartState extends AbstractAppState implements UpdateListener {
         String start = "Interface/StartNifty.xml";
         String game = "Interface/GameNifty.xml";
         String sets = "Interface/SettingsNifty.xml";
-        nifty.fromXml(start , "start", controllers.get(start));
+        
+        //Register some of the controllers 
+        nifty.registerScreenController(controllers.get(start));
+        
+        //Add the XMLs
         nifty.addXml(start);
-        nifty.addXml(sets);
+        nifty.addXml(game);
+        
+        //'Start' the nifty
+        nifty.gotoScreen("start");
         
         app.getGuiViewPort().addProcessor(fakeNifty);
         
