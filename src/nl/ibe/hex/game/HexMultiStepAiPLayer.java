@@ -48,20 +48,7 @@ public class HexMultiStepAiPLayer extends HexPlayer implements IHexGameAiPlayer 
         root = new HexStateTreeNode(b, currentPlayer , otherPlayer, null, false);
         root.generateChildren();
         
-        
-       
-        
-        /*
-        for (int i = 0; i < depth; i++)
-        {
-            for(HexStateTreeNode node : nodes)
-            {
-                node.generateChildren();
-                nodes = node.getChildren();
-            }
-        }
-*/
-        
+
         recurse(root,DEPTH);
         ArrayList<HexStateTreeNode> nodes = root.getChildren();
 
