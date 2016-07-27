@@ -17,24 +17,41 @@ import nl.ibe.hex.game.player.Team;
  * @author b0rg3rt
  * TODO: implement this
  */
-public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
+public class HexMultiStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
     
     private HexStateTreeNode root;
-    private static int depth = 2;
+    private static final int DEPTH = 3;
     
-    public HexTwoStepAiPLayer(String name, Team team) {
+    public HexMultiStepAiPLayer(String name, Team team) {
         super(name, team);
         this.human = false;
-    }   
+    }
+    
+    private void recurse(HexStateTreeNode node, int levels)
+    {
+        if (levels > 0)
+        {
+            ArrayList<HexStateTreeNode> children = node.getChildren();
+            for (HexStateTreeNode child : children)
+            {
+                child.generateChildren();
+                recurse(child, levels -1);
+            }
+            
+        }
+        
+    }
     
     @Override
     public HexMove getNextHexMove(HexBoard b,HexPlayer currentPlayer, HexPlayer otherPlayer)
     {
-        root = new HexStateTreeNode(b, currentPlayer, otherPlayer, null, true);
+        root = new HexStateTreeNode(b, currentPlayer , otherPlayer, null, false);
         root.generateChildren();
         
         
-        ArrayList<HexStateTreeNode> nodes = root.getChildren();
+       
+        
+        /*
         for (int i = 0; i < depth; i++)
         {
             for(HexStateTreeNode node : nodes)
@@ -43,8 +60,16 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
                 nodes = node.getChildren();
             }
         }
+*/
+        
+        recurse(root,DEPTH);
+        ArrayList<HexStateTreeNode> nodes = root.getChildren();
 
         //System.out.println(root.toString());
+        
+//        System.out.println("digraph g {");
+//        System.out.println(root.dumpTree());
+//        System.out.println("}");
         
         int bestMoveVal = Integer.MIN_VALUE;
         HexMove bestMove = null;
@@ -59,8 +84,10 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
                 bestMove = node.getMove();
             }
         }
-        System.out.println(root.toString());
-
+        
+        System.out.println("digraph g {");
+        System.out.println(root.dumpTree());
+        System.out.println("}");
        // System.out.println("bestMove: " + bestMove);
         return bestMove;
     }

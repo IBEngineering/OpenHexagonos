@@ -300,6 +300,7 @@ public class View implements IHexGameListener {
 
     @Override
     public void gameEnd(HexPlayer winner) {
+        System.out.println("-------------------------- WINNER: " + winner.getName());
         niftyGuy.gameEnd(winner);
     }
 }

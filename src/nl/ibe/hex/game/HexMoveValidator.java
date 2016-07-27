@@ -139,7 +139,6 @@ public class HexMoveValidator {
     {
         ConcurrentHashMap<HexCoordinate, HexTile> bord = board.getBoard();
         if (move == null) { return Integer.MIN_VALUE; }
-        ArrayList<HexCoordinate> neighs = move.getTo().ring(1);
             
         int points = 0;
         
@@ -148,6 +147,8 @@ public class HexMoveValidator {
         {
             points = points + 1;
         }
+
+        ArrayList<HexCoordinate> neighs = move.getTo().ring(1);
         
         for(HexCoordinate c : neighs)
         {
@@ -158,12 +159,12 @@ public class HexMoveValidator {
                 {
                     if (t.getOwner() != move.getPlayer())
                     {
+                        // We duplicate the score for Captures
                         points = points + 1;
                     }
                 }
             }
         }
-
         return points;
 
     }

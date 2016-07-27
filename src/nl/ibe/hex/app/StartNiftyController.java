@@ -24,7 +24,7 @@ import nl.ibe.hex.game.HexOneStepAiPlayer;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.HexRandomAiPlayer;
 import nl.ibe.hex.supply.ColorSupplier;
-import nl.ibe.hex.game.HexTwoStepAiPLayer;
+import nl.ibe.hex.game.HexMultiStepAiPLayer;
 import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.game.player.TeamManager;
 import nl.ibe.hex.supply.ID;
@@ -121,8 +121,8 @@ public class StartNiftyController implements ScreenController, RawInputListener 
             TextField textField = nifty.getCurrentScreen().findNiftyControl("namingTextField", TextField.class);
             String name = "ita";
             
-            HexPlayer human = new HexPlayer(name, team);
-            HexPlayer ai = new HexTwoStepAiPLayer("two_step_ai", oppTeam);
+            HexPlayer human = new HexOneStepAiPlayer(name, team);
+            HexPlayer ai = new HexMultiStepAiPLayer("two_step_ai", oppTeam);
             
             Main m = (Main) app;
             m.startGame(human, ai);
