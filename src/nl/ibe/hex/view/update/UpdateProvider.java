@@ -7,6 +7,7 @@ package nl.ibe.hex.view.update;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,13 +15,16 @@ import java.util.HashMap;
  */
 public class UpdateProvider {
     
-    public static ArrayList<UpdateTicker> tickers = new ArrayList<>();
+    public static HashMap<String,UpdateTicker> tickers = new HashMap<>();
     
     public static ArrayList<UpdateListener> listeners = new ArrayList<>();
     
     public static void update(float tpf) {
-        for (UpdateTicker ticker : tickers) {
-            ticker.update();
+        for (Map.Entry<String, UpdateTicker> entry : tickers.entrySet()) {
+            String key = entry.getKey();
+            UpdateTicker value = entry.getValue();
+            
+            value.update();
         }
         
         for (UpdateListener listener : listeners) {

@@ -21,5 +21,8 @@ public interface IHexGame {
     public void undoMove();
     public HexBoard getBoard();
     public void nextTurn();
+    
+    public HexPlayer[] getPlayers();
+    public HexPlayer getPlayer(int index);
 
 }

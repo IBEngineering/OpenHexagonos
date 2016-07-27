@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
+    
+    <useControls filename="nifty-default-controls.xml"/>
+    <useStyles filename="nifty-default-styles.xml"/>
+    
+    <screen id="hud" controller="nl.ibe.hex.app.GameNiftyController">
+        
+        <layer id="foreground" childLayout="vertical">
+            
+            <panel id="screen filler" childLayout="absolute" width="100%" height="80%" align="center" backgroundColor="#f882"/>
+            
+            <panel id="bottom banner 1" childLayout="center" width="100%" height="10%" align="center" backgroundColor="#8f82">
+                <control id="playerCurrent" name="label" text="${CALL.getPlayerInfo(current)}" width="100%" />
+                
+                <effect>
+                    <onHover name="hint" hintDelay="0" hintText="This is player information screen" />
+                </effect>
+            </panel>
+            
+            <panel id="bottom banner 0" childLayout="horizontal" width="100%" height="10%" align="center"  backgroundColor="#88f2">
+                <control id="score0" name="label" text="${CALL.getPlayerInfo(score0)}" width="50%" height="100%"/>
+                <control id="score1" name="label" text="${CALL.getPlayerInfo(score1)}" width="50%" height="100%"/>
+            </panel>
+            
+        </layer>
+        
+        <popup id="popup" childLayout="vertical" backgroundColor="#0005">
+            <panel id="titleText" childLayout="center" width="100%" height="10%">
+                <control name="label" id="titleInfo" text="Score Screen" width="100%" height="100%"/>
+            </panel>
+            
+            <panel id="main" childLayout="center" width="100%" height="80%" >
+                <control name="label" id="winner" text="who won" width="100%" height="100%"/>
+            </panel>
+            
+            <panel id="scores" childLayout="horizontal" width="100%" height="10%">
+                <control name="label" id=":score:" text="score" width="100%" height="100%"/>
+            </panel>
+        </popup>
+        
+    </screen>
+    
+</nifty>

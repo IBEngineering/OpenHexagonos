@@ -9,6 +9,8 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.niftygui.NiftyJmeDisplay;
+import de.lessvoid.nifty.Nifty;
 import nl.ibe.hex.game.HexGame;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.view.View;
@@ -23,6 +25,10 @@ public class GameState extends AbstractAppState {
     
     private HexPlayer p1, p2;
     
+    //Nifties
+    private NiftyJmeDisplay fakeNifty;
+    private Nifty nifty;
+    
     public GameState(HexPlayer p1, HexPlayer p2) {
         this.p1 = p1;
         this.p2 = p2;
@@ -35,12 +41,21 @@ public class GameState extends AbstractAppState {
         
         HexGame game = new HexGame(p1, p2);
         View view = new View(this.app);
+        
+        //Init the nifty
+        fakeNifty = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getViewPort());
+        nifty = fakeNifty.getNifty();
+        
+        //Create the screencontrol and load the nifty
+        GameNiftyController gnc = new GameNiftyController(nifty, this.app, game, view);
+        nifty.fromXml("Interface/HUDNifty.xml", "hud", gnc);
+        
+        //Tell jme to see it
+        app.getGuiViewPort().addProcessor(fakeNifty);
+        
+        
+        //Do the last things
         game.register(view);
-        view.construct(p1, p2);
+        view.construct(p1, p2, gnc);
     }
-    
-    
-    
-    
-    
 }

@@ -6,16 +6,21 @@
 package nl.ibe.hex.view;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppState;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.ColorRGBA;
+import de.lessvoid.nifty.elements.Element;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.*;
 import nl.ibe.hex.app.Clicker;
+import nl.ibe.hex.app.GameNiftyController;
+import nl.ibe.hex.app.GameState;
 import nl.ibe.hex.game.*;
 import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.supply.*;
+import nl.ibe.hex.view.update.TickerListener;
 
 /**
  * This contains everything for the scene.
@@ -25,7 +30,7 @@ import nl.ibe.hex.supply.*;
  * 
  * @author MisterCavespider
  */
-public class View implements IHexGameListener{
+public class View implements IHexGameListener {
     
     //contains all the HexSpatials
     public ViewGrid grid;
@@ -47,6 +52,7 @@ public class View implements IHexGameListener{
     
     //A logger!
     private static final Logger LOG = Logger.getLogger("View");
+    private GameNiftyController niftyGuy;
     
     /**
      * Standard constructor.
@@ -71,7 +77,9 @@ public class View implements IHexGameListener{
      * It will populate the ViewGrid using the board from 
      * the game. It will also create and register a clicker.
      */
-    public void construct(HexPlayer p1, HexPlayer p2) {
+    public void construct(HexPlayer p1, HexPlayer p2, GameNiftyController niftyGuy) {
+        this.niftyGuy = niftyGuy;
+        
         //Is there a game?
         if(game == null) {
             //No
@@ -108,6 +116,8 @@ public class View implements IHexGameListener{
     public void tilesChanged(ArrayList<HexChange> hexagons) {
         //The tiles have changed owner
         //Loop over them and change the blobs
+        
+        niftyGuy.sync();
         
         for (HexChange change : hexagons) {
             
@@ -290,16 +300,6 @@ public class View implements IHexGameListener{
 
     @Override
     public void gameEnd(HexPlayer winner) {
-        if (winner != null)
-        {
-            System.out.println("Player " + winner.getName() + "won the game with " + winner.getPoints() + " points!");
-        }
-        else
-        {
-            System.out.println("Stale mate !");
-        }
-        
+        niftyGuy.gameEnd(winner);
     }
-    
-    
 }

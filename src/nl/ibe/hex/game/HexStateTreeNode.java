@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class HexStateTreeNode {
     
     private HexBoard board;
-    private int points;
+    private int points = 0;
     private HexMove move;
     private HexPlayer player;
     private HexPlayer opponent;
@@ -48,7 +48,7 @@ public class HexStateTreeNode {
                 HexMoveValidator.executeMove(m, childBoard, player);
                 //Create a child node and switch the player and opponent and negate the isOpponent;
                 HexStateTreeNode child = new HexStateTreeNode(childBoard, opponent, player, this, !isOpponent);
-                child.setPoints(new Integer(HexMoveValidator.getMoveValue(m, board)));
+                child.setPoints(new Integer(HexMoveValidator.getMoveValue(m, child.board)));
                 child.setMove(m);
                 children.add(child);
 
@@ -64,7 +64,7 @@ public class HexStateTreeNode {
             childBoard = board.getDuplicate();
             HexMoveValidator.executeMove(bestMove, childBoard, player);
             HexStateTreeNode child = new HexStateTreeNode(childBoard, opponent, player, this, !isOpponent);
-            child.setPoints(new Integer(HexMoveValidator.getMoveValue(bestMove, board)));
+            child.setPoints(new Integer(HexMoveValidator.getMoveValue(bestMove, child.board)));
             child.setMove(bestMove);
             children.add(child);
 
@@ -77,16 +77,18 @@ public class HexStateTreeNode {
         if (!startNode.getChildren().isEmpty())
         {
             int maxPoints = Integer.MIN_VALUE;
+            boolean opponent = false;
             for (HexStateTreeNode currNode: startNode.getChildren())
             {
                     int chldPts = accumulatePoints(currNode);
                     if (chldPts > maxPoints)
                     {
+                        opponent = currNode.isIsOpponent();
                         maxPoints = chldPts;
                     }
             }
             
-            if (isOpponent)
+            if (opponent)
             {
                 maxPoints = -1 * maxPoints;
             }

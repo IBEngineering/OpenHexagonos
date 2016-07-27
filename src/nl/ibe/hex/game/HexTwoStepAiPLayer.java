@@ -59,6 +59,8 @@ public class HexTwoStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
                 bestMove = node.getMove();
             }
         }
+        System.out.println(root.toString());
+
        // System.out.println("bestMove: " + bestMove);
         return bestMove;
     }

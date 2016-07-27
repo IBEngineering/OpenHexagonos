@@ -286,5 +286,14 @@ public class HexGame implements IHexGame {
         nextPlayer();
     }
     
+    @Override
+    public HexPlayer[] getPlayers() {
+        return this.players;
+    }
+    
+    @Override
+    public HexPlayer getPlayer(int index) {
+        return players[index];
+    }
     
 }

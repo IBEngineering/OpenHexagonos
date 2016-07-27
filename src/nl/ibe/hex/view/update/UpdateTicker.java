@@ -15,14 +15,23 @@ public class UpdateTicker {
     
     ArrayList<UpdateTickHandler> handlers;
     
-    private long lastTime;
-    private double pieceOfTime;
+    ArrayList<UpdateTickListener> listeners;
     
-    public UpdateTicker(double hertz, long startTime) {
+    private String name;
+    
+    private long lastTime;
+    private final double pieceOfTime;
+    private final double hertz;
+    
+    public UpdateTicker(String name, double hertz, long startTime) {
+        this.name = name;
+        this.hertz = hertz;
+        
         pieceOfTime = 1000/hertz;
         lastTime = startTime;
         
         handlers = new ArrayList<>();
+        listeners = new ArrayList<>();
     }
     
     public void update() {
@@ -34,11 +43,21 @@ public class UpdateTicker {
                 handler.onClick(this, lastTime);
             }
             lastTime = System.currentTimeMillis();
+            
+            for (UpdateTickListener listener : listeners) {
+                
+                listener.tickUpdate(hertz);
+                
+            }
         }
     }
     
     public void addHandler(UpdateTickHandler handler) {
         handlers.add(handler);
+    }
+    
+    public void addListener(UpdateTickListener listener) {
+        listeners.add(listener);
     }
     
 }
