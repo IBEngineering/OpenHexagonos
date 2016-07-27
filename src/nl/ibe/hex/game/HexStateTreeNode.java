@@ -66,7 +66,9 @@ public class HexStateTreeNode {
             HexBoard childBoard;           
             childBoard = board.getDuplicate();
             HexStateTreeNode child = new HexStateTreeNode(childBoard, opponent, player, this, !isOpponent);
-            child.setPoints(HexMoveValidator.getMoveValue(bestMove, child.board));
+            
+            
+            child.setPoints(-1 * HexMoveValidator.getMoveValue(bestMove, child.board));
             
             HexMoveValidator.executeMove(bestMove, childBoard, player);
             child.setMove(bestMove);
@@ -98,18 +100,7 @@ public class HexStateTreeNode {
                
             }
             
-            if (!childopponent)
-            {
-                maxPoints = -1 * maxPoints;
-                startNode.accumulatedPoints =startNode.getPoints() + maxPoints;
-            }
-            else
-            {
-                startNode.accumulatedPoints = -1 * startNode.getPoints() + maxPoints;
-            }
-            
-            
-            //return maxPoints;
+            startNode.accumulatedPoints =  startNode.getPoints() + maxPoints;
             return startNode.accumulatedPoints;
             
         } else {

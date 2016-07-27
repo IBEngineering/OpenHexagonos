@@ -121,8 +121,8 @@ public class StartNiftyController implements ScreenController, RawInputListener 
             TextField textField = nifty.getCurrentScreen().findNiftyControl("namingTextField", TextField.class);
             String name = "ita";
             
-            HexPlayer human = new HexOneStepAiPlayer(name, team);
-            HexPlayer ai = new HexMultiStepAiPLayer("two_step_ai", oppTeam);
+            HexPlayer human = new HexPlayer(name, team);
+            HexPlayer ai = new HexMultiStepAiPLayer("multi-step-ai", oppTeam);
             
             Main m = (Main) app;
             m.startGame(human, ai);

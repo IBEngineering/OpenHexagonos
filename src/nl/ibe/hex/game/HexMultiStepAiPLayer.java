@@ -20,7 +20,7 @@ import nl.ibe.hex.game.player.Team;
 public class HexMultiStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
     
     private HexStateTreeNode root;
-    private static final int DEPTH = 3;
+    private static final int DEPTH = 4;
     
     public HexMultiStepAiPLayer(String name, Team team) {
         super(name, team);
@@ -71,10 +71,10 @@ public class HexMultiStepAiPLayer extends HexPlayer implements IHexGameAiPlayer 
                 bestMove = node.getMove();
             }
         }
-        
+        /*
         System.out.println("digraph g {");
         System.out.println(root.dumpTree());
-        System.out.println("}");
+        System.out.println("}");*/
        // System.out.println("bestMove: " + bestMove);
         return bestMove;
     }
