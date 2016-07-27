@@ -159,7 +159,6 @@ public class HexMoveValidator {
                 {
                     if (t.getOwner() != move.getPlayer())
                     {
-                        // We duplicate the score for Captures
                         points = points + 1;
                     }
                 }

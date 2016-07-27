@@ -20,7 +20,7 @@ import nl.ibe.hex.game.player.Team;
 public class HexMultiStepAiPLayer extends HexPlayer implements IHexGameAiPlayer {
     
     private HexStateTreeNode root;
-    private static final int DEPTH = 4;
+    private static final int DEPTH = 3;
     
     public HexMultiStepAiPLayer(String name, Team team) {
         super(name, team);
