@@ -1,2 +1,5 @@
-int Five=3;
+int Five=5;
 string text=dasd;
+int calc={$Five*2};
+float precise=0.0002;
+string who are you=$$PROJECT.findFile(user)+!;
