@@ -56,6 +56,10 @@ public class View implements IHexGameListener {
     private static final Logger LOG = Logger.getLogger("View");
     private GameNiftyController niftyGuy;
     
+    //Should there be clicked?
+    public boolean openForInput = true;
+    private boolean currCanItMove;
+    
     /**
      * Standard constructor.
      * 
@@ -121,6 +125,8 @@ public class View implements IHexGameListener {
         
         niftyGuy.sync();
         
+        AnimationQeue aq = new AnimationQeue(this);
+        
         for (HexChange change : hexagons) {
             
             switch (change.getType()) {
@@ -170,11 +176,21 @@ public class View implements IHexGameListener {
             HexSpatial s = grid.getGrid().get(change.getStart().getCoordinate());
             Spatial sp = s.getSpatial();
             
-            Animation a = new Animation(change, start, end, sp);
-            a.launch();
+//            Animation a = new Animation(change, start, end, sp);
+//            aq.add(a);
         }
+        
+//        aq.launch();
+//        openForInput = false;
     }
 
+    public void onEndAnimQeue() {
+//        openForInput = true;
+//        if(currCanItMove) {
+//            game.nextTurn();
+//        }
+    }
+    
     /**
      * Updates the player.
      * @param player    The current player
@@ -233,12 +249,12 @@ public class View implements IHexGameListener {
             
             HexMove move = new HexMove(p, c1, c2);
             
-            boolean canItMove = game.move(move);
-            if(canItMove) {
-                game.nextTurn();
-            }
+            //Wait for the animator
+           if(game.move(move)) {
+               game.nextTurn();
+           }
             
-            LOG.log(Level.INFO, "Can it move? {0}", canItMove);
+            LOG.log(Level.INFO, "Can it move? {0}", currCanItMove);
             selected = false;
             
             //Reset the colors

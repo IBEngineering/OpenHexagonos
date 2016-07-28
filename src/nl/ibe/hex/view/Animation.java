@@ -21,6 +21,7 @@ public class Animation implements UpdateListener {
     private Vector3f start, end, mov;
     private Spatial spatial;
     private long StartTime;
+    private AnimationQeue aq;
 
     public Animation(HexChange change, Vector3f start, Vector3f end, Spatial s) {
         this.change = change;
@@ -47,8 +48,13 @@ public class Animation implements UpdateListener {
     }
     
     public void launch() {
-        UpdateProvider.listeners.add(this);
+        UpdateProvider.qeueAdd(this);
         StartTime = System.currentTimeMillis();
+    }
+    
+    public void launch(AnimationQeue aq) {
+        launch();
+        this.aq = aq;
     }
 
     @Override
@@ -56,7 +62,8 @@ public class Animation implements UpdateListener {
         if(System.currentTimeMillis() - StartTime < 1000) {
             spatial.move(mov.mult(tpf));
         } else {
-            //Qeue a remove
+            aq.onEndAnim(this);
+//            UpdateProvider.qeueRemove(this);
         }
         
     }

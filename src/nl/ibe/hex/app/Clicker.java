@@ -91,7 +91,12 @@ public class Clicker implements ActionListener {
                     //Check if it's a hexSpatial
                     if(result.getGeometry() instanceof HexSpatial) {
                         hs = (HexSpatial) result.getGeometry();
-                        view.onClick(hs);
+                        
+                        if(view.openForInput){
+                            view.onClick(hs);
+                        }
+                                                
+                        
                     } else {
                         Logger.getLogger("Clicker").log(Level.WARNING, "not a hex... {0}", node.toString());
                     }

@@ -71,7 +71,7 @@ public class GameNiftyController implements ScreenController, UpdateTickListener
             Label score1 = nifty.getCurrentScreen().findNiftyControl("score1", Label.class);
             score1.setText(getPlayerInfo("score1"));
             
-            LabelControl currPl = nifty.getCurrentScreen().findControl("playerCurrent", LabelControl.class);
+            Label currPl = nifty.getCurrentScreen().findNiftyControl("playerCurrent", Label.class);
             currPl.setText(getPlayerInfo("current"));
         }
     }
@@ -109,14 +109,14 @@ public class GameNiftyController implements ScreenController, UpdateTickListener
     }
 
     public void gameEnd(HexPlayer winner) {
-        Element popupInstance = nifty.createPopup(nifty.getCurrentScreen(), "popup");
+        Element popupInstance = nifty.createPopup("popupId");
         
         nifty.showPopup(nifty.getCurrentScreen(), popupInstance.getId(), popupInstance);
         
-        LabelControl title = nifty.getCurrentScreen().findControl("winner", LabelControl.class);
+        Label title = nifty.getCurrentScreen().findNiftyControl("winner", Label.class);
         title.setText(winner.getName() + " won!");
         
-        LabelControl score = nifty.getCurrentScreen().findControl(":score:", LabelControl.class);
+        Label score = nifty.getCurrentScreen().findNiftyControl(":score:", Label.class);
         score.setText(game.getPlayer(0).getPoints() + ":" + game.getPlayer(1).getPoints());
     }
     
