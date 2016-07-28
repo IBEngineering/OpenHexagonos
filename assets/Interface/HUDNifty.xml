@@ -8,9 +8,9 @@
         
         <layer id="foreground" childLayout="vertical">
             
-            <panel id="screen filler" childLayout="absolute" width="100%" height="80%" align="center" backgroundColor="#f882"/>
+            <panel id="screen filler" childLayout="absolute" width="100%" height="90%" align="center" backgroundColor="#f880"/>
             
-            <panel id="bottom banner 1" childLayout="center" width="100%" height="10%" align="center" backgroundColor="#8f82">
+            <panel id="bottom banner 1" childLayout="center" width="100%" height="5%" align="center" backgroundColor="#8f80">
                 <control id="playerCurrent" name="label" text="${CALL.getPlayerInfo(current)}" width="100%" />
                 
                 <effect>
@@ -18,14 +18,14 @@
                 </effect>
             </panel>
             
-            <panel id="bottom banner 0" childLayout="horizontal" width="100%" height="10%" align="center"  backgroundColor="#88f2">
+            <panel id="bottom banner 0" childLayout="horizontal" width="100%" height="5%" align="center"  backgroundColor="#88f0">
                 <control id="score0" name="label" text="${CALL.getPlayerInfo(score0)}" width="50%" height="100%"/>
                 <control id="score1" name="label" text="${CALL.getPlayerInfo(score1)}" width="50%" height="100%"/>
             </panel>
             
         </layer>
         
-        <popup id="popup" childLayout="vertical" backgroundColor="#0005">
+        <popup id="popupId" childLayout="vertical" backgroundColor="#0005">
             <panel id="titleText" childLayout="center" width="100%" height="10%">
                 <control name="label" id="titleInfo" text="Score Screen" width="100%" height="100%"/>
             </panel>

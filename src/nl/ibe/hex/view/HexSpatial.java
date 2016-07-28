@@ -9,6 +9,7 @@ import com.jme3.math.Vector3f;
 import nl.ibe.hex.game.HexCoordinate;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.supply.*;
@@ -35,6 +36,7 @@ public class HexSpatial extends Geometry {
     //Owner etc.
     private Node ownerNode;
     private Team ownerTeam;
+    private Spatial spatial;
     
     /**
      * Standard constructor.
@@ -89,7 +91,9 @@ public class HexSpatial extends Geometry {
         
         //Attach the stuff
         if(team != null) {
-            ownerNode.attachChild(ModelSupplier.getPlayerShape(team));
+            Spatial s = ModelSupplier.getPlayerShape(team);
+            this.spatial = s;
+            ownerNode.attachChild(s);
             //ownerNode.attachChild(ParticleSupplier.getFire(ColorSupplier.getPlayerColor(type), ColorRGBA.White));
         }
     }
@@ -116,4 +120,10 @@ public class HexSpatial extends Geometry {
     public Node getOwnerAttach() {
         return ownerNode;
     }
+
+    public Spatial getSpatial() {
+        return spatial;
+    }
+    
+    
 }

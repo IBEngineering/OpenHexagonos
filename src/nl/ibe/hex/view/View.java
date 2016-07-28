@@ -10,6 +10,8 @@ import com.jme3.app.state.AppState;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.elements.Element;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -158,10 +160,18 @@ public class View implements IHexGameListener {
                     s.setOwner(conqueror);
                     
                     break;
-                }
+                }   //End of case
                     
-            }
+            }   //End of switch
             
+            Vector3f start = CoordinateConverter.toVector(change.getStart().getCoordinate());
+            Vector3f end = CoordinateConverter.toVector(change.getEnd().getCoordinate());
+            
+            HexSpatial s = grid.getGrid().get(change.getStart().getCoordinate());
+            Spatial sp = s.getSpatial();
+            
+            Animation a = new Animation(change, start, end, sp);
+            a.launch();
         }
     }
 
