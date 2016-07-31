@@ -78,6 +78,8 @@ public class ModelSupplier {
         
         Geometry spatial = new Geometry("A " + team.getName() + " generated in ModelSupplier", mesh);
         spatial.setMaterial(MaterialSupplier.getPlayerMaterial(team));
+        float r = (float) (0.5*Math.PI);
+        spatial.rotate(r, 0, 0);
         
         return spatial;
     }

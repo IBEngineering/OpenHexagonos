@@ -7,6 +7,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.system.AppSettings;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -55,7 +57,13 @@ public class Main extends SimpleApplication {
     public void simpleInitApp() {
         shortcut = getAssetManager();
         
-        flyCam.setMoveSpeed(50);
+        cam.setLocation(new Vector3f(0.0f, 18f, 15.f));
+        cam.setRotation(new Quaternion(0.00439f, 0.9f, -0.428f, 0.00927f));
+        
+        flyCam.setZoomSpeed(100);
+        
+        flyCam.setMoveSpeed(0);
+        flyCam.setRotationSpeed(0.1f);
         flyCam.setDragToRotate(true);
         
         SupplyRouter.startRouting(this, new SupplyRouter.SupplySettings(true));
