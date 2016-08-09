@@ -8,7 +8,6 @@ package nl.ibe.hex.view.update;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import nl.ibe.hex.view.Animation;
 
 /**
  *
@@ -37,7 +36,7 @@ public class UpdateProvider {
         
         //Delete the removals
         for (UpdateListener listener : removals) {
-//            listeners.remove(listener);
+            listeners.remove(listener);
         }
         
         //Add the addals

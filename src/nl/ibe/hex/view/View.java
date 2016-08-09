@@ -11,6 +11,7 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.elements.Element;
 import java.util.*;
@@ -22,6 +23,8 @@ import nl.ibe.hex.app.GameState;
 import nl.ibe.hex.game.*;
 import nl.ibe.hex.game.player.Team;
 import nl.ibe.hex.supply.*;
+import nl.ibe.hex.view.anim.Animation;
+import nl.ibe.hex.view.anim.AnimationFactory;
 import nl.ibe.hex.view.update.TickerListener;
 
 /**
@@ -125,9 +128,9 @@ public class View implements IHexGameListener {
         
         niftyGuy.sync();
         
-        AnimationQeue aq = new AnimationQeue(this);
-        
         for (HexChange change : hexagons) {
+            
+            AnimationFactory.buildAnimation(change, this, true);
             
             switch (change.getType()) {
                 case DUPLICATION: {
@@ -175,9 +178,6 @@ public class View implements IHexGameListener {
             
             HexSpatial s = grid.getGrid().get(change.getStart().getCoordinate());
             Spatial sp = s.getSpatial();
-            
-//            Animation a = new Animation(change, start, end, sp);
-//            aq.add(a);
         }
         
 //        aq.launch();
@@ -227,6 +227,10 @@ public class View implements IHexGameListener {
      * @param hex   The HexSpatial clicked.
      */
     public void onClick(HexSpatial hex) {
+        
+        if(!Animation.silent()) {
+            return;
+        }
         
         ModelSupplier.changePlayer(app.getRootNode(), game.getCurrentPlayer().getTeam());
         
@@ -328,5 +332,9 @@ public class View implements IHexGameListener {
     public void gameEnd(HexPlayer winner) {
         System.out.println("-------------------------- WINNER: " + winner.getName());
         niftyGuy.gameEnd(winner);
+    }
+    
+    public Node getRootNode() {
+        return app.getRootNode();
     }
 }
