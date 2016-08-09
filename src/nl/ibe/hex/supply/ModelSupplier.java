@@ -45,7 +45,7 @@ public class ModelSupplier {
     
     public static Geometry getRandomHexagon(float min_radius) {
         
-        float radius = Random.rdm(min_radius, min_radius+30);
+        float radius = Random.rdmF(min_radius, min_radius+30);
         Mesh mesh = new HexagonMesh(radius);
         
         Geometry g = new Geometry("a random hexagon", mesh);

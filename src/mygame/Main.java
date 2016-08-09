@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.ibe.hex.game.HexPlayer;
+import nl.ibe.hex.settings.SettingsHQ;
 import nl.ibe.hex.supply.SupplyRouter;
 import nl.ibe.hex.util.Encryptor;
 import nl.ibe.hex.util.TextReader;
@@ -39,6 +40,8 @@ public class Main extends SimpleApplication {
         
         app.setDisplayStatView(false);
         app.setDisplayFps(false);
+        
+        SettingsHQ.readBase();
         
         try {
             String what = (TextReader.readFile("assets/Interface/Text/txt.txt")).get(0);

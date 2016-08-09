@@ -8,6 +8,7 @@ package nl.ibe.hex.supply;
 import com.jme3.math.ColorRGBA;
 import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.player.Team;
+import nl.ibe.hex.settings.SettingsHQ;
 import nl.ibe.hex.util.Random;
 import nl.ibe.hex.util.Relator;
 
@@ -38,9 +39,16 @@ public class ColorSupplier {
             
             return new ColorRGBA(0.2f, 0.2f, blue, 1.0f);
         } else if(team.getColourID().equals(1)) {
-            float green = (float) Random.approximate(0.8f, 0.2f);
+            //Bacteria
             
-            return new ColorRGBA(0.2f, green, 0.2f, 1.0f);
+            ColorRGBA color = SettingsHQ.Graphics.Colours.colour_bacteria.clone();
+            float g = Random.approximate(color.g, 0.2f);
+            
+            color.g = g;
+            
+            return color;
+            
+            
         } else if(team.getColourID().equals(2)) {
             float red = (float) Random.approximate(0.8f, 0.2f);
             
@@ -62,6 +70,33 @@ public class ColorSupplier {
         ColorRGBA c =  SupplyRouter.getSettings().boardColor.clone();
         c.r = (float) Random.approximate(c.r, SupplyRouter.getSettings().redApproximation);
         return c;
+    }
+    
+    public static ColorRGBA fromNiftyFormat(String c) {
+        
+        switch (c.length()) {
+            case 5:
+                float[] values = new float[4];
+                ColorRGBA color = new ColorRGBA();
+                
+                for (int a = 0; a < 4; a++) {
+                    int i = Integer.parseInt(c.charAt(a+1) + "");
+                    float f = Relator.relate(i, 9, 1.0f);
+                    values[a] = f;
+                }
+                
+                color.r = values[0];
+                color.g = values[1];
+                color.b = values[2];
+                color.a = values[3];
+                
+                return color;
+            case 9:
+                return null;
+            default:
+                return null;
+        }
+        
     }
     
     public static String niftyFormat(ColorRGBA c) {

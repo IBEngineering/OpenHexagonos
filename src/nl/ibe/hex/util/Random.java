@@ -44,25 +44,25 @@ public class Random {
     }
     
     /**
-     * Calls and casts the other rdm().
+     * Calls and casts the other rdmD().
      */
-    public static float rdm(float min, float max) {
-        return (float) rdmD((double) min, (double) max);
+    public static float rdmF(float min, float max) {
+        return (float) rdmD(min, max);
     }
     
     /**
      * Calls and casts the other rdm().
      */
-    public static int rdm(int min, int max) {
+    public static int rdmI(int min, int max) {
         return (int) rdmD((double) min, (double) max);
     }
     
     
-    public static double approximate(float original, float distort) {
+    public static float approximate(float original, float distort) {
         float min = original - distort/2.0f;
         float max = original + distort/2.0f;
         
-        double returner = rdmD(min, max);
+        float returner = rdmF(min, max);
         return returner;
     }
     
@@ -80,7 +80,7 @@ public class Random {
         }
         
         int size = list.size();
-        int index = rdm(0, size);
+        int index = rdmI(0, size);
         
         return list.get(index);
     }
