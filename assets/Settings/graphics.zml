@@ -1,0 +1,3 @@
+##The graphics
+string colour_bacteria =#3629;
+float colour_bacteria_aprox = 0.8;
