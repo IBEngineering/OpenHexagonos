@@ -62,8 +62,8 @@ public class Main extends SimpleApplication {
         
         flyCam.setZoomSpeed(100);
         
-        flyCam.setMoveSpeed(0);
-        flyCam.setRotationSpeed(0.1f);
+        flyCam.setMoveSpeed(30);
+        flyCam.setRotationSpeed(0.3f);
         flyCam.setDragToRotate(true);
         
         SupplyRouter.startRouting(this, new SupplyRouter.SupplySettings(true));
