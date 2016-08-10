@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.ibe.hex.supply.ColorSupplier;
-import nl.ibe.hex.util.Random;
 import nl.mrcave.zml.ZML;
 
 /**
