@@ -24,7 +24,7 @@ public class Encryptor {
 //            x = (char) (x * 10);
 //            return x;
 
-            return (char) (c*2 - 1);
+            return (char) (c+2);
         }
         
         public static char dec(char x) {

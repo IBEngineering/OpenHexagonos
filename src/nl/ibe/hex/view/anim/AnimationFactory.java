@@ -18,10 +18,28 @@ import nl.ibe.hex.view.View;
 public class AnimationFactory {
     
     public static Animation buildAnimation(HexChange change, View view, boolean run) {
-        HexPlayer player = change.getStart().getOwner();
+        HexPlayer player;
         HexSpatial startH, endH;
         Vector3f startPos, endPos, moveVec;
         Animation prod;
+        
+        switch (change.getType()) {
+            
+            case DUPLICATION:
+                player = change.getStart().getOwner();
+                break;
+            case JUMP:
+                player = change.getEnd().getOwner();
+                break;
+            case CONQUEST:
+                player = change.getStart().getOwner();
+                break;
+            default:
+                player = change.getStart().getOwner();
+                break;
+            
+        }
+        
         
         startH = view.grid.getGrid().get(change.getStart().getCoordinate());
         endH = view.grid.getGrid().get(change.getEnd().getCoordinate());

@@ -19,7 +19,7 @@ public class Animation implements UpdateListener {
     public static int runningAnimations = 0;
     
     public static boolean silent() {
-        return runningAnimations >= 0;
+        return runningAnimations == 0;
     }
     
     protected Vector3f startPos, endPos, moveVec;
@@ -44,14 +44,14 @@ public class Animation implements UpdateListener {
         startTime = System.currentTimeMillis();
         
         ghost.setLocalTranslation(startPos);
-        ghost.move(0, 10, 0);
+        ghost.move(0, 0.5f, 0);
     }
 
     @Override
     public void provUpdate(float tpf) {
         long deltaT = System.currentTimeMillis() - startTime;
-        if(deltaT < 10000) {
-            ghost.move(moveVec.mult(0.1f));
+        if(deltaT < 1000) {
+            ghost.move(moveVec.mult(tpf));
         } else {
             stop();
         }
@@ -62,6 +62,7 @@ public class Animation implements UpdateListener {
         UpdateProvider.qeueRemove(this);
         runningAnimations--;
         root.detachChild(ghost);
+        //ghost = null;
     }
     
     public void emergencyRequestedStop(int status) {

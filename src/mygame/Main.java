@@ -43,6 +43,8 @@ public class Main extends SimpleApplication {
         
         SettingsHQ.readBase();
         
+        System.out.println(Encryptor.encryptString("settings", "Hello"));
+        
         try {
             String what = (TextReader.readFile("assets/Interface/Text/txt.txt")).get(0);
             String answer = Encryptor.decryptString("settings", what);

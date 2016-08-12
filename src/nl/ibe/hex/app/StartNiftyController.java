@@ -122,7 +122,7 @@ public class StartNiftyController implements ScreenController, RawInputListener 
             String name = "ita";
             
             HexPlayer human = new HexPlayer(name, team);
-            HexPlayer ai = new HexMultiStepAiPLayer("multi-step-ai", oppTeam);
+            HexPlayer ai = new HexPlayer("multi-step-ai", oppTeam);
             
             Main m = (Main) app;
             m.startGame(human, ai);

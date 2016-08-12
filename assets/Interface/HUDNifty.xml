@@ -8,37 +8,37 @@
         
         <layer id="foreground" childLayout="vertical">
             
-            <panel id="screen filler" childLayout="absolute" width="100%" height="90%" align="center" backgroundColor="#f880"/>
+            <panel id="p_filler" childLayout="absolute" width="100%" height="90%" align="center" backgroundColor="#f880"/>
             
-            <panel id="bottom banner 1" childLayout="center" width="100%" height="5%" align="center" backgroundColor="#8f80">
-                <control id="playerCurrent" name="label" text="${CALL.getPlayerInfo(current)}" width="100%" />
+            <panel id="p_bottom_banner_1" childLayout="center" width="100%" height="5%" align="center" backgroundColor="#8f80">
+                <control id="c_playerCurrent" name="label" text="${CALL.getPlayerInfo(current)}" width="100%" />
                 
                 <effect>
                     <onHover name="hint" hintDelay="0" hintText="This is player information screen" />
                 </effect>
             </panel>
             
-            <panel id="bottom banner 0" childLayout="horizontal" width="100%" height="5%" align="center"  backgroundColor="#88f0">
-                <control id="score0" name="label" text="${CALL.getPlayerInfo(score0)}" width="50%" height="100%"/>
-                <control id="score1" name="label" text="${CALL.getPlayerInfo(score1)}" width="50%" height="100%"/>
+            <panel id="p_bottom_banner_0" childLayout="horizontal" width="100%" height="5%" align="center"  backgroundColor="#88f0">
+                <control id="c_score0" name="label" text="${CALL.getPlayerInfo(score0)}" width="50%" height="100%"/>
+                <control id="c_score1" name="label" text="${CALL.getPlayerInfo(score1)}" width="50%" height="100%"/>
             </panel>
             
         </layer>
         
-        <popup id="popupId" childLayout="vertical" backgroundColor="#0005">
-            <panel id="titleText" childLayout="center" width="100%" height="10%">
-                <control name="label" id="titleInfo" text="Score Screen" width="100%" height="100%"/>
-            </panel>
-            
-            <panel id="main" childLayout="center" width="100%" height="80%" >
-                <control name="label" id="winner" text="who won" width="100%" height="100%"/>
-            </panel>
-            
-            <panel id="scores" childLayout="horizontal" width="100%" height="10%">
-                <control name="label" id=":score:" text="score" width="100%" height="100%"/>
-            </panel>
-        </popup>
-        
     </screen>
+    
+    <popup id="scoreScreen" childLayout="vertical" backgroundColor="${CALL.getColor(score)}">
+        <panel id="p_title" childLayout="center" width="100%" height="10%">
+            <control name="label" id="label_title" text="Score Screen" width="100%" height="100%"/>
+        </panel>
+        
+        <panel id="p_main" childLayout="center" width="100%" height="80%" >
+            <control name="label" id="label_winner" text="who won" width="100%" height="100%"/>
+        </panel>
+        
+        <panel id="p_scores" childLayout="horizontal" width="100%" height="10%">
+            <control name="label" id="label_scores" text="score" width="100%" height="100%"/>
+        </panel>
+    </popup>
     
 </nifty>

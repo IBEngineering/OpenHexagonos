@@ -55,25 +55,7 @@ public class GameState extends AbstractAppState {
         //Tell jme to see it
         app.getGuiViewPort().addProcessor(fakeNifty);
         
-        //Wow!
-        Spatial[][][] arr = new Spatial[4][4][4];
         
-        for (int a=0;a<4;a++) {
-            
-            for (int b=0;b<4;b++) {
-                
-                for (int c=0;c<4;c++) {
-                    
-                    Spatial spatial = ModelSupplier.getPlayerModel(p2);
-                    this.app.getRootNode().attachChild(spatial);
-                    spatial.setLocalTranslation(a, b, c);
-                    arr[a][b][c] = spatial;
-                    
-                }
-                
-            }
-            
-        }
         
         //Do the last things
         game.register(view);

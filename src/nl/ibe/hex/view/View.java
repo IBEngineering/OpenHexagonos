@@ -130,7 +130,21 @@ public class View implements IHexGameListener {
         
         for (HexChange change : hexagons) {
             
+            
+            System.out.println(Animation.silent());
             AnimationFactory.buildAnimation(change, this, true);
+            System.out.println(Animation.silent());
+            
+            /*
+            while(!Animation.silent())
+            {
+                System.out.println(Animation.silent());
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }*/
             
             switch (change.getType()) {
                 case DUPLICATION: {
@@ -178,18 +192,12 @@ public class View implements IHexGameListener {
             
             HexSpatial s = grid.getGrid().get(change.getStart().getCoordinate());
             Spatial sp = s.getSpatial();
+            
+
         }
         
-//        aq.launch();
-//        openForInput = false;
     }
 
-    public void onEndAnimQeue() {
-//        openForInput = true;
-//        if(currCanItMove) {
-//            game.nextTurn();
-//        }
-    }
     
     /**
      * Updates the player.
@@ -228,9 +236,10 @@ public class View implements IHexGameListener {
      */
     public void onClick(HexSpatial hex) {
         
+
         if(!Animation.silent()) {
             return;
-        }
+        } 
         
         ModelSupplier.changePlayer(app.getRootNode(), game.getCurrentPlayer().getTeam());
         
@@ -255,7 +264,8 @@ public class View implements IHexGameListener {
             
             //Wait for the animator
            if(game.move(move)) {
-               game.nextTurn();
+                
+                game.nextTurn();
            }
             
             LOG.log(Level.INFO, "Can it move? {0}", currCanItMove);
