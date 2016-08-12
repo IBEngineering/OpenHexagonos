@@ -18,6 +18,7 @@ import nl.ibe.hex.game.HexPlayer;
 import nl.ibe.hex.game.IHexGame;
 import nl.ibe.hex.game.IHexGameListener;
 import nl.ibe.hex.supply.ColorSupplier;
+import nl.ibe.hex.view.View;
 import nl.ibe.hex.view.update.TickerListener;
 import nl.ibe.hex.view.update.UpdateListener;
 import nl.ibe.hex.view.update.UpdateProvider;
@@ -77,6 +78,8 @@ public class GameNiftyController implements ScreenController, UpdateTickListener
             Label currPl = nifty.getCurrentScreen().findNiftyControl("c_playerCurrent", Label.class);
             currPl.setText(getPlayerInfo("current"));
         }
+        
+        
     }
     
     public String getPlayerInfo(String type) {
@@ -125,6 +128,8 @@ public class GameNiftyController implements ScreenController, UpdateTickListener
     @Override
     public void tickUpdate(double hertz) {
         sync();
+        
+        //((nl.ibe.hex.view.View) this.view).boardReset();
     }
 
     public void gameEnd(HexPlayer winner) {

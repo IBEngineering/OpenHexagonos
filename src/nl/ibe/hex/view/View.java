@@ -272,12 +272,7 @@ public class View implements IHexGameListener {
             selected = false;
             
             //Reset the colors
-            for (Map.Entry<HexCoordinate, HexSpatial> en : grid.grid.entrySet()) {
-                HexCoordinate key = en.getKey();
-                HexSpatial value = en.getValue();
-                
-                value.setMaterial(MaterialSupplier.getColoredMaterial(ColorSupplier.getBoardColor()));
-            }
+            boardReset();
             
             
         } else {    //!selected
@@ -320,6 +315,15 @@ public class View implements IHexGameListener {
         
         
     }
+    
+    public void boardReset() {
+        for (Map.Entry<HexCoordinate, HexSpatial> en : grid.grid.entrySet()) {
+            HexCoordinate key = en.getKey();
+            HexSpatial value = en.getValue();
+
+            value.setMaterial(MaterialSupplier.getColoredMaterial(ColorSupplier.getBoardColor()));
+        }
+    }   
     
     /**
      * Checks if the player isn't null.

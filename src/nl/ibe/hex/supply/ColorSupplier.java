@@ -42,9 +42,9 @@ public class ColorSupplier {
             //Bacteria
             
             ColorRGBA color = SettingsHQ.Graphics.Colours.colour_bacteria.clone();
-            float g = Random.approximate(color.g, 0.2f);
+            float g = Random.approximate(color.g, SettingsHQ.Graphics.Colours.bac_distort);
             
-            color.g = g;
+            color.a = g;
             
             return color;
             

@@ -71,7 +71,7 @@ public class ModelSupplier {
             mesh = new Box(0.35f, 0.35f, 0.35f);
         } else if(team.getModelID().equals(1, "model")) {
             //Bacteria
-            mesh = new Sphere(6, 6, 0.35f);
+            mesh = new Sphere(16, 16, 0.35f);
         } else if(team.getModelID().equals(2, "model")) {
             mesh = new Torus(8, 8, 0.05f, 0.35f);
         }
